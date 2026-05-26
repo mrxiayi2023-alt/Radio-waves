@@ -140,27 +140,20 @@
     }
     .hero-buttons .btn-secondary:hover { background: rgba(0,122,255,0.06); transform: translateY(-2px); }
 
-    /* ===== iPhone 17 Pro Max 模型 ===== */
+    /* ===== iPhone 15 模型 ===== */
     .iphone-model {
-      flex-shrink: 0; width: 300px; height: 620px;
-      background: linear-gradient(135deg, #3A3A3C, #1C1C1E, #2D2D30);
-      border-radius: 48px; padding: 2px; position: relative;
-      box-shadow: 0 0 0 2px #3A3A3C, 0 30px 70px rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.15);
+      flex-shrink: 0; width: 280px; height: 560px;
+      background: #1C1C1E; border-radius: 40px; padding: 8px; position: relative;
+      box-shadow: 0 0 0 2px #3A3A3C, 0 30px 60px rgba(0,0,0,0.25), 0 10px 20px rgba(0,0,0,0.15);
     }
     .iphone-screen {
       width: 100%; height: 100%; background: #F2F2F7;
-      border-radius: 46px; overflow: hidden; display: flex; flex-direction: column; position: relative;
+      border-radius: 32px; overflow: hidden; display: flex; flex-direction: column; position: relative;
     }
     .dynamic-island {
       position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
-      width: 110px; height: 30px; background: #1C1C1E; border-radius: 15px; z-index: 10;
+      width: 100px; height: 28px; background: #1C1C1E; border-radius: 14px; z-index: 10;
     }
-    /* iPhone 侧面按钮 */
-    .iphone-btn { position: absolute; background: #2D2D30; z-index: 5; }
-    .iphone-btn.vol-up { top: 140px; left: -2px; width: 3px; height: 40px; border-radius: 0 2px 2px 0; }
-    .iphone-btn.vol-down { top: 192px; left: -2px; width: 3px; height: 40px; border-radius: 0 2px 2px 0; }
-    .iphone-btn.mute { top: 100px; left: -2px; width: 3px; height: 28px; border-radius: 0 2px 2px 0; }
-    .iphone-btn.power { top: 160px; right: -2px; width: 3px; height: 50px; border-radius: 2px 0 0 2px; }
 
     /* 聊天导航栏 */
     .chat-nav {
@@ -373,9 +366,9 @@
       .section-title { font-size: 38px; }
       .section-subtitle { font-size: 18px; margin-bottom: 40px; }
       .hero-text h1 { font-size: 44px; }
-      .iphone-model { width: 250px; height: 510px; border-radius: 42px; }
-      .iphone-screen { border-radius: 40px; }
-      .dynamic-island { width: 90px; height: 26px; border-radius: 13px; top: 8px; }
+      .iphone-model { width: 230px; height: 460px; border-radius: 36px; padding: 6px; }
+      .iphone-screen { border-radius: 28px; }
+      .dynamic-island { width: 80px; height: 24px; border-radius: 12px; top: 8px; }
       .iphone-chats { padding: 6px 10px; gap: 5px; }
       .chat-bubble { padding: 6px 10px; font-size: 10px; }
       .chat-nav { padding: 6px 10px; }
@@ -454,7 +447,7 @@
     <div class="container">
       <div class="hero-text">
         <div class="hero-tag"><span>✨</span> <span data-lang="hero-tag">即将上市</span></div>
-        <h1><span data-lang="hero-title-prefix">Dochat</span><span style="color:#007AFF;"> 电邮</span><span data-lang="hero-title-suffix">APP</span></h1>
+        <h1><span data-lang="hero-title">电邮APP</span></h1>
         <p class="hero-slogan" data-lang="hero-slogan">极简联络，一诺可守</p>
         <div class="hero-buttons">
           <button class="btn-primary" onclick="scrollToSection('subscribe')">📥 <span data-lang="hero-preorder">预订下载</span></button>
@@ -462,12 +455,8 @@
         </div>
       </div>
 
-      <!-- iPhone 17 Pro Max 模型 -->
-      <div class="iphone-model" aria-label="iPhone 17 Pro Max 模型展示Dochat聊天界面">
-        <div class="iphone-btn vol-up"></div>
-        <div class="iphone-btn vol-down"></div>
-        <div class="iphone-btn mute"></div>
-        <div class="iphone-btn power"></div>
+      <!-- iPhone 15 模型 -->
+      <div class="iphone-model" aria-label="iPhone 15 模型展示Dochat聊天界面">
         <div class="iphone-screen">
           <div class="dynamic-island"></div>
           <!-- 聊天导航栏 -->
@@ -511,7 +500,7 @@
       <div class="features-grid">
         <div class="feature-card fade-in">
           <span class="icon">💬</span>
-          <h3 data-lang="fcard1-title">消息</h3>
+          <h3 data-lang="fcard1-title">聊天</h3>
           <p data-lang="fcard1-desc">端到端加密聊天，文字/语音/视频通话，安全可靠。您的每一次沟通都受到最严格的隐私保护。</p>
           <span class="learn-more" onclick="openModal('modal1')" data-lang="learnmore">了解更多</span> →
         </div>
@@ -528,8 +517,8 @@
           <span class="learn-more" onclick="openModal('modal3')" data-lang="learnmore">了解更多</span> →
         </div>
         <div class="feature-card fade-in">
-          <span class="icon">👤</span>
-          <h3 data-lang="fcard4-title">我的</h3>
+          <span class="icon">⚙️</span>
+          <h3 data-lang="fcard4-title">设置</h3>
           <p data-lang="fcard4-desc">个人中心，隐私安全可控，数据端侧存储。真正将数据主权交还给用户。</p>
           <span class="learn-more" onclick="openModal('modal4')" data-lang="learnmore">了解更多</span> →
         </div>
@@ -572,6 +561,15 @@
           <div class="eco-info">
             <h3 data-lang="eco4-title">电邮招聘</h3>
             <p data-lang="eco4-desc">企业直招，信誉保障。企业实名认证，职位信息真实可靠，找到最适合您的人才。</p>
+          </div>
+          <span class="eco-tag" data-lang="eco-coming">即将上线</span>
+        </div>
+        <!-- 第5张生态卡片：邮箱 -->
+        <div class="eco-card fade-in">
+          <div class="eco-icon">📧</div>
+          <div class="eco-info">
+            <h3 data-lang="eco5-title">邮箱</h3>
+            <p data-lang="eco5-desc">App账号即邮箱，聊天级邮件体验。注册即开通，无需额外设置。</p>
           </div>
           <span class="eco-tag" data-lang="eco-coming">即将上线</span>
         </div>
@@ -665,7 +663,7 @@
       <button class="modal-close" onclick="closeModal('modal3')">×</button>
       <div class="modal-title" data-lang="modal3-title">💼 服务</div>
       <div class="modal-body" data-lang="modal3-body">
-        一站式生活服务平台，四大生态即将上线：
+        一站式生活服务平台，五大生态即将上线：
         <ul style="margin-top:8px;">
           <li>🔒 担保履约 — 资金托管，安心交易</li>
           <li>🏠 电邮找房 — 直连房东，无中介费</li>
@@ -681,7 +679,7 @@
     <div class="modal-box">
       <div class="modal-handle"></div>
       <button class="modal-close" onclick="closeModal('modal4')">×</button>
-      <div class="modal-title" data-lang="modal4-title">👤 我的</div>
+      <div class="modal-title" data-lang="modal4-title">⚙️ 设置</div>
       <div class="modal-body">
         <ul>
           <li data-lang="modal4-1">• 实名认证，账号安全保障</li>
@@ -702,19 +700,20 @@
       var langData = {
         zh: {
           'nav-home': '首页', 'nav-products': '产品', 'nav-eco': '生态', 'nav-contact': '联系', 'nav-preorder': '预订下载',
-          'hero-tag': '即将上市', 'hero-title-prefix': '', 'hero-title-suffix': '电邮APP',
+          'hero-tag': '即将上市', 'hero-title': '电邮APP',
           'hero-slogan': '极简联络，一诺可守', 'hero-preorder': '预订下载', 'hero-learnmore': '了解更多',
           'features-title': '核心功能', 'features-subtitle': '简洁、安全、高效的一站式通讯平台',
-          'fcard1-title': '消息', 'fcard1-desc': '端到端加密聊天，文字/语音/视频通话，安全可靠。您的每一次沟通都受到最严格的隐私保护。',
+          'fcard1-title': '聊天', 'fcard1-desc': '端到端加密聊天，文字/语音/视频通话，安全可靠。您的每一次沟通都受到最严格的隐私保护。',
           'fcard2-title': '广场', 'fcard2-desc': '动态分享，关注好友生活，发现精彩世界。在这里记录生活点滴，连接志同道合的伙伴。',
           'fcard3-title': '服务', 'fcard3-desc': '担保交易/找房/婚恋/招聘，一站式生活服务。一个平台满足您生活的方方面面。',
-          'fcard4-title': '我的', 'fcard4-desc': '个人中心，隐私安全可控，数据端侧存储。真正将数据主权交还给用户。',
+          'fcard4-title': '设置', 'fcard4-desc': '个人中心，隐私安全可控，数据端侧存储。真正将数据主权交还给用户。',
           'learnmore': '了解更多',
           'eco-title': '生活服务生态', 'eco-subtitle': '不止通讯，更懂你的生活',
           'eco1-title': '担保履约', 'eco1-desc': '资金托管，安心交易。买卖双方资金由平台托管，交易完成后再放款，彻底杜绝诈骗风险。',
           'eco2-title': '电邮找房', 'eco2-desc': '直连房东，无中介费。真实房源，房东直租，省去中间环节，让租房更简单透明。',
           'eco3-title': '电邮婚恋', 'eco3-desc': '真实交友，恋爱分数。基于实名认证的智能匹配，让每一次相遇都更有意义。',
           'eco4-title': '电邮招聘', 'eco4-desc': '企业直招，信誉保障。企业实名认证，职位信息真实可靠，找到最适合您的人才。',
+          'eco5-title': '邮箱', 'eco5-desc': 'App账号即邮箱，聊天级邮件体验。注册即开通，无需额外设置。',
           'eco-coming': '即将上线',
           'sub-title': '第一时间获取上线通知', 'sub-subtitle': '填写邮箱，我们会在 App 上线时第一时间通知您',
           'sub-btn': '订阅通知', 'sub-appstore': '即将登陆 App Store', 'sub-note': '我们尊重您的隐私，绝不泄露您的邮箱',
@@ -736,8 +735,8 @@
           'modal2-4': '• 关注/推荐/同城三种信息流',
           'modal2-5': '• 轻量化设计，无广告无冗余信息',
           'modal3-title': '💼 服务',
-          'modal3-body': '一站式生活服务平台，四大生态即将上线：',
-          'modal4-title': '👤 我的',
+          'modal3-body': '一站式生活服务平台，五大生态即将上线：',
+          'modal4-title': '⚙️ 设置',
           'modal4-1': '• 实名认证，账号安全保障',
           'modal4-2': '• 隐私设置，控制信息可见范围',
           'modal4-3': '• 数据端侧存储，云端仅存日志',
@@ -746,19 +745,20 @@
         },
         en: {
           'nav-home': 'Home', 'nav-products': 'Products', 'nav-eco': 'Ecosystem', 'nav-contact': 'Contact', 'nav-preorder': 'Pre-order',
-          'hero-tag': 'Coming Soon', 'hero-title-prefix': 'Dochat ', 'hero-title-suffix': '',
+          'hero-tag': 'Coming Soon', 'hero-title': 'Dochat',
           'hero-slogan': 'Simple Connection, Trusted Promise', 'hero-preorder': 'Pre-order Download', 'hero-learnmore': 'Learn More',
           'features-title': 'Core Features', 'features-subtitle': 'Simple, Secure, Efficient All-in-One Communication',
-          'fcard1-title': 'Messages', 'fcard1-desc': 'End-to-end encrypted messaging with text, voice, and video calls. Your conversations are protected with the highest privacy standards.',
+          'fcard1-title': 'Chats', 'fcard1-desc': 'End-to-end encrypted messaging with text, voice, and video calls. Your conversations are protected with the highest privacy standards.',
           'fcard2-title': 'Discover', 'fcard2-desc': 'Share moments, follow friends, and explore a world of content. Record life and connect with like-minded people.',
           'fcard3-title': 'Services', 'fcard3-desc': 'Escrow, housing, dating, recruitment — one platform for all your life service needs.',
-          'fcard4-title': 'Profile', 'fcard4-desc': 'Your personal center with privacy controls and on-device storage. True data sovereignty for every user.',
+          'fcard4-title': 'Settings', 'fcard4-desc': 'Your personal center with privacy controls and on-device storage. True data sovereignty for every user.',
           'learnmore': 'Learn More',
           'eco-title': 'Life Services Ecosystem', 'eco-subtitle': 'More than messaging, truly understand your life',
           'eco1-title': 'Escrow', 'eco1-desc': 'Secure fund escrow, trade with confidence.',
           'eco2-title': 'Housing', 'eco2-desc': 'Direct to landlord, zero agency fees.',
           'eco3-title': 'Dating', 'eco3-desc': 'Authentic dating with trust scores.',
           'eco4-title': 'Jobs', 'eco4-desc': 'Direct hiring with reputation guarantee.',
+          'eco5-title': 'Mail', 'eco5-desc': 'Your app account is your email. Chat-like mail experience. Ready to use upon registration.',
           'eco-coming': 'Coming Soon',
           'sub-title': 'Get Notified at Launch', 'sub-subtitle': 'Enter your email and we\'ll notify you when the app launches',
           'sub-btn': 'Subscribe', 'sub-appstore': 'Coming to App Store', 'sub-note': 'We respect your privacy and will never share your email',
@@ -780,8 +780,8 @@
           'modal2-4': '• Following/Recommended/Local content feeds',
           'modal2-5': '• Lightweight design, no ads or clutter',
           'modal3-title': '💼 Services',
-          'modal3-body': 'All-in-one life service platform, four ecosystems launching soon:',
-          'modal4-title': '👤 Profile',
+          'modal3-body': 'All-in-one life service platform, five ecosystems launching soon:',
+          'modal4-title': '⚙️ Settings',
           'modal4-1': '• Verified identity, account security',
           'modal4-2': '• Privacy settings, control your visibility',
           'modal4-3': '• On-device data storage, cloud logs only',
