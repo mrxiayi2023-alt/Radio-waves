@@ -155,14 +155,12 @@
       width: 100px; height: 28px; background: #1C1C1E; border-radius: 14px; z-index: 10;
     }
 
-    /* 聊天导航栏 */
+    /* 聊天导航栏 — 仅居中显示联系人名称 */
     .chat-nav {
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; justify-content: center;
       padding: 8px 12px; margin-top: 2px; z-index: 11; position: relative;
     }
-    .chat-nav .back { font-size: 16px; cursor: default; opacity: 0.7; }
     .chat-nav .name { font-size: 13px; font-weight: 700; color: #1C1C1E; }
-    .chat-nav .actions { display: flex; gap: 8px; font-size: 13px; cursor: default; opacity: 0.7; }
 
     /* 聊天内容 */
     .iphone-chats {
@@ -459,11 +457,9 @@
       <div class="iphone-model" aria-label="iPhone 15 模型展示Dochat聊天界面">
         <div class="iphone-screen">
           <div class="dynamic-island"></div>
-          <!-- 聊天导航栏 -->
+          <!-- 聊天导航栏 — 仅居中显示联系人名称 -->
           <div class="chat-nav">
-            <span class="back">◀</span>
             <span class="name">张三</span>
-            <span class="actions">📞 ▶</span>
           </div>
           <!-- 聊天内容：杭州西湖旅游对话 -->
           <div class="iphone-chats">
