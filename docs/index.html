@@ -10,6 +10,7 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_CN">
   <style>
+/* ===== 全局重置 & 基础样式 ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
@@ -20,10 +21,13 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
+    body.modal-open { overflow: hidden; }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
     ul { list-style: none; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== 导航栏 ===== */
     .navbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       padding: 0 24px; height: 64px;
@@ -36,6 +40,7 @@
     .navbar.scrolled { background: rgba(255,255,255,0.88); }
     .navbar .logo { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; color: #1C1C1E; }
     .navbar .logo span { color: #007AFF; }
+    .navbar .nav-right { display: flex; align-items: center; gap: 12px; }
     .nav-links { display: flex; align-items: center; gap: 32px; }
     .nav-links a { font-size: 15px; color: #3C3C43; font-weight: 500; transition: color 0.3s ease; }
     .nav-links a:hover { color: #007AFF; }
@@ -46,6 +51,18 @@
       transition: filter 0.3s ease, transform 0.3s ease; white-space: nowrap;
     }
     .nav-btn:hover { filter: brightness(0.9); transform: translateY(-1px); }
+
+    /* ===== 语言切换按钮 ===== */
+    .lang-switch {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(255,255,255,0.8); border: 0.5px solid rgba(0,0,0,0.08);
+      font-size: 13px; font-weight: 500; padding: 6px 12px;
+      border-radius: 20px; cursor: pointer; color: #3C3C43;
+      transition: all 0.3s ease; white-space: nowrap;
+    }
+    .lang-switch:hover { background: rgba(255,255,255,1); border-color: #C7C7CC; }
+
+    /* ===== 汉堡菜单 ===== */
     .hamburger {
       display: none; flex-direction: column; justify-content: center; gap: 5px;
       cursor: pointer; padding: 4px; background: none; border: none; z-index: 1001;
@@ -78,6 +95,8 @@
       background: #007AFF; color: #fff; font-size: 17px; font-weight: 600;
       border-radius: 20px; border: none; cursor: pointer;
     }
+
+    /* ===== Section 通用 ===== */
     section { padding: 100px 0; }
     .section-title {
       font-size: 48px; font-weight: 600; letter-spacing: -0.5px;
@@ -87,6 +106,8 @@
       font-size: 20px; color: #8E8E93;
       text-align: center; margin-bottom: 56px; font-weight: 400;
     }
+
+    /* ===== Hero 首屏 ===== */
     .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 0 80px; }
     .hero .container { display: flex; align-items: center; justify-content: space-between; gap: 60px; width: 100%; }
     .hero-text { flex: 1; min-width: 0; }
@@ -118,57 +139,100 @@
       transition: all 0.3s ease;
     }
     .hero-buttons .btn-secondary:hover { background: rgba(0,122,255,0.06); transform: translateY(-2px); }
+
+    /* ===== iPhone 17 Pro Max 模型 ===== */
     .iphone-model {
-      flex-shrink: 0; width: 280px; height: 560px;
-      background: #1C1C1E; border-radius: 44px; padding: 10px; position: relative;
-      box-shadow: 0 0 0 2px #3A3A3C, 0 30px 60px rgba(0,0,0,0.25), 0 10px 20px rgba(0,0,0,0.15);
+      flex-shrink: 0; width: 300px; height: 620px;
+      background: linear-gradient(135deg, #3A3A3C, #1C1C1E, #2D2D30);
+      border-radius: 48px; padding: 2px; position: relative;
+      box-shadow: 0 0 0 2px #3A3A3C, 0 30px 70px rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.15);
     }
     .iphone-screen {
       width: 100%; height: 100%; background: #F2F2F7;
-      border-radius: 36px; overflow: hidden; display: flex; flex-direction: column; position: relative;
+      border-radius: 46px; overflow: hidden; display: flex; flex-direction: column; position: relative;
     }
     .dynamic-island {
       position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
-      width: 100px; height: 28px; background: #1C1C1E; border-radius: 14px; z-index: 10;
+      width: 110px; height: 30px; background: #1C1C1E; border-radius: 15px; z-index: 10;
     }
-    .iphone-status {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 8px 20px 4px; margin-top: 4px; font-size: 11px; font-weight: 600; color: #1C1C1E;
+    /* iPhone 侧面按钮 */
+    .iphone-btn { position: absolute; background: #2D2D30; z-index: 5; }
+    .iphone-btn.vol-up { top: 140px; left: -2px; width: 3px; height: 40px; border-radius: 0 2px 2px 0; }
+    .iphone-btn.vol-down { top: 192px; left: -2px; width: 3px; height: 40px; border-radius: 0 2px 2px 0; }
+    .iphone-btn.mute { top: 100px; left: -2px; width: 3px; height: 28px; border-radius: 0 2px 2px 0; }
+    .iphone-btn.power { top: 160px; right: -2px; width: 3px; height: 50px; border-radius: 2px 0 0 2px; }
+
+    /* 聊天导航栏 */
+    .chat-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 12px; margin-top: 2px; z-index: 11; position: relative;
     }
-    .iphone-status .time { font-size: 12px; font-weight: 700; }
-    .iphone-status .icons { display: flex; gap: 4px; align-items: center; }
-    .iphone-status .icons .dot { width: 14px; height: 8px; border-radius: 4px; }
-    .iphone-status .icons .dot.signal { background: #34C759; width: 10px; height: 8px; border-radius: 2px; }
-    .iphone-status .icons .dot.wifi { background: #007AFF; width: 12px; height: 8px; border-radius: 2px; }
-    .iphone-status .icons .dot.battery { background: #34C759; width: 18px; height: 8px; border-radius: 3px; }
-    .iphone-chats { flex: 1; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+    .chat-nav .back { font-size: 16px; cursor: default; opacity: 0.7; }
+    .chat-nav .name { font-size: 13px; font-weight: 700; color: #1C1C1E; }
+    .chat-nav .actions { display: flex; gap: 8px; font-size: 13px; cursor: default; opacity: 0.7; }
+
+    /* 聊天内容 */
+    .iphone-chats {
+      flex: 1; padding: 8px 12px; display: flex; flex-direction: column; gap: 6px;
+      overflow: hidden;
+    }
+    .chat-time {
+      text-align: center; font-size: 9px; color: #8E8E93;
+      margin: 4px 0 2px; font-weight: 500;
+    }
     .chat-bubble {
-      padding: 10px 14px; border-radius: 16px; font-size: 11px;
-      max-width: 78%; line-height: 1.4;
+      padding: 8px 12px; border-radius: 14px; font-size: 11px;
+      max-width: 82%; line-height: 1.4;
       animation: chatPop 0.4s ease both;
     }
-    .chat-bubble:nth-child(2) { animation-delay: 0.1s; }
-    .chat-bubble:nth-child(3) { animation-delay: 0.2s; }
-    .chat-bubble:nth-child(4) { animation-delay: 0.3s; }
+    .chat-bubble:nth-child(2) { animation-delay: 0.05s; }
+    .chat-bubble:nth-child(3) { animation-delay: 0.1s; }
+    .chat-bubble:nth-child(4) { animation-delay: 0.15s; }
+    .chat-bubble:nth-child(5) { animation-delay: 0.2s; }
+    .chat-bubble:nth-child(6) { animation-delay: 0.25s; }
     @keyframes chatPop {
       from { opacity: 0; transform: scale(0.85); }
       to { opacity: 1; transform: scale(1); }
     }
-    .chat-bubble.sent { align-self: flex-end; background: #007AFF; color: #fff; border-bottom-right-radius: 4px; }
-    .chat-bubble.received { align-self: flex-start; background: #E9E9EF; color: #1C1C1E; border-bottom-left-radius: 4px; }
+    .chat-bubble.sent {
+      align-self: flex-end; background: #007AFF; color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-bubble.received {
+      align-self: flex-start; background: #E9E9EF; color: #1C1C1E;
+      border-bottom-left-radius: 4px;
+    }
     .chat-bubble .sender { font-size: 10px; font-weight: 600; opacity: 0.7; margin-bottom: 2px; }
+
+    /* 底部输入栏 */
+    .chat-input-bar {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 10px 4px; background: rgba(255,255,255,0.95);
+    }
+    .chat-input-bar .field {
+      flex: 1; background: #F2F2F7; border-radius: 16px;
+      padding: 6px 12px; font-size: 10px; color: #8E8E93;
+    }
+    .chat-input-bar .send-btn {
+      width: 26px; height: 26px; border-radius: 50%; background: #007AFF;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: #fff; cursor: default;
+    }
+
+    /* iPhone Tab Bar */
     .iphone-tabbar {
       display: flex; justify-content: space-around; align-items: center;
-      padding: 8px 12px; background: rgba(255,255,255,0.95);
+      padding: 4px 8px 6px; background: rgba(255,255,255,0.95);
       backdrop-filter: blur(10px); border-top: 0.5px solid #E5E5EA;
     }
     .iphone-tabbar .tab-item {
-      display: flex; flex-direction: column; align-items: center; gap: 2px;
-      font-size: 9px; color: #8E8E93; transition: color 0.3s;
+      display: flex; flex-direction: column; align-items: center; gap: 1px;
+      font-size: 8px; color: #8E8E93; transition: color 0.3s;
     }
     .iphone-tabbar .tab-item.active { color: #007AFF; }
-    .iphone-tabbar .tab-item .tab-icon { width: 20px; height: 20px; background: #C7C7CC; border-radius: 6px; transition: background 0.3s; }
-    .iphone-tabbar .tab-item.active .tab-icon { background: #007AFF; }
+    .iphone-tabbar .tab-item .tab-icon { font-size: 14px; line-height: 1; }
+
+    /* ===== 核心功能 ===== */
     .features { background: #fff; }
     .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
     .feature-card {
@@ -180,8 +244,13 @@
     .feature-card .icon { font-size: 40px; margin-bottom: 16px; display: block; }
     .feature-card h3 { font-size: 22px; font-weight: 600; margin-bottom: 10px; color: #1C1C1E; }
     .feature-card p { font-size: 15px; color: #8E8E93; line-height: 1.6; margin-bottom: 16px; }
-    .feature-card .learn-more { font-size: 14px; font-weight: 600; color: #007AFF; transition: gap 0.3s ease; display: inline-flex; align-items: center; gap: 4px; }
+    .feature-card .learn-more {
+      font-size: 14px; font-weight: 600; color: #007AFF; transition: gap 0.3s ease;
+      display: inline-flex; align-items: center; gap: 4px; cursor: pointer;
+    }
     .feature-card:hover .learn-more { gap: 8px; }
+
+    /* ===== 生态区 ===== */
     .eco { background: #F2F2F7; }
     .eco-list { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
     .eco-card {
@@ -196,6 +265,8 @@
     .eco-card .eco-info h3 { font-size: 20px; font-weight: 600; margin-bottom: 6px; color: #1C1C1E; }
     .eco-card .eco-info p { font-size: 15px; color: #8E8E93; line-height: 1.5; }
     .eco-card .eco-tag { flex-shrink: 0; font-size: 12px; font-weight: 600; color: #8E8E93; background: #F2F2F7; padding: 4px 14px; border-radius: 100px; }
+
+    /* ===== 订阅区 ===== */
     .subscribe { background: linear-gradient(180deg, #fff 0%, #F2F2F7 100%); text-align: center; }
     .subscribe-box { max-width: 520px; margin: 0 auto; }
     .subscribe-form { display: flex; gap: 12px; margin-bottom: 24px; }
@@ -222,6 +293,8 @@
     .app-store-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; color: #8E8E93; margin-bottom: 12px; }
     .app-store-badge .apple-icon { font-size: 22px; }
     .subscribe-note { font-size: 13px; color: #C7C7CC; }
+
+    /* ===== Toast ===== */
     .toast {
       position: fixed; top: 80px; left: 50%;
       transform: translateX(-50%) translateY(-20px);
@@ -234,6 +307,46 @@
       text-align: center; max-width: 90vw;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: none; }
+
+    /* ===== Modal 模态框 ===== */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4); z-index: 8000;
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      background: #fff; border-radius: 16px 16px 0 0;
+      width: 100%; max-width: 500px; max-height: 70vh;
+      padding: 20px 24px 28px; overflow-y: auto;
+      transform: translateY(100%); transition: transform 0.3s ease;
+      position: relative;
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-handle {
+      width: 40px; height: 4px; border-radius: 2px;
+      background: #D1D1D6; margin: 0 auto 16px;
+    }
+    .modal-close {
+      position: absolute; top: 14px; right: 16px;
+      width: 30px; height: 30px; border-radius: 50%;
+      border: none; background: transparent; cursor: pointer;
+      font-size: 18px; color: #8E8E93;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.3s ease;
+    }
+    .modal-close:hover { background: #F2F2F7; }
+    .modal-box .modal-title { font-size: 22px; font-weight: 700; margin-bottom: 16px; color: #1C1C1E; }
+    .modal-box .modal-body { font-size: 15px; color: #3C3C43; line-height: 1.7; }
+    .modal-box .modal-body li {
+      padding: 6px 0; list-style: none;
+      border-bottom: 0.5px solid #E5E5EA;
+    }
+    .modal-box .modal-body li:last-child { border-bottom: none; }
+
+    /* ===== 页脚 ===== */
     footer {
       background: #F2F2F7; border-top: 0.5px solid #E5E5EA;
       padding: 40px 0 32px;
@@ -250,26 +363,30 @@
       font-size: 16px; transition: background 0.3s ease, transform 0.3s ease; cursor: default;
     }
     .footer-social .social-icon:hover { background: #D1D1D6; transform: translateY(-2px); }
+
+    /* ===== 滚动淡入 ===== */
     .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== 响应式 ===== */
     @media (max-width: 1024px) {
       .section-title { font-size: 38px; }
       .section-subtitle { font-size: 18px; margin-bottom: 40px; }
       .hero-text h1 { font-size: 44px; }
-      .iphone-model { width: 230px; height: 460px; border-radius: 38px; padding: 8px; }
-      .iphone-screen { border-radius: 30px; }
-      .dynamic-island { width: 80px; height: 24px; border-radius: 12px; top: 8px; }
-      .iphone-status { padding: 6px 16px 2px; font-size: 10px; }
-      .iphone-chats { padding: 10px 12px; gap: 8px; }
-      .chat-bubble { padding: 8px 12px; font-size: 10px; }
-      .iphone-tabbar { padding: 6px 10px; }
-      .iphone-tabbar .tab-item { font-size: 8px; }
-      .iphone-tabbar .tab-item .tab-icon { width: 16px; height: 16px; }
+      .iphone-model { width: 250px; height: 510px; border-radius: 42px; }
+      .iphone-screen { border-radius: 40px; }
+      .dynamic-island { width: 90px; height: 26px; border-radius: 13px; top: 8px; }
+      .iphone-chats { padding: 6px 10px; gap: 5px; }
+      .chat-bubble { padding: 6px 10px; font-size: 10px; }
+      .chat-nav { padding: 6px 10px; }
+      .chat-nav .name { font-size: 11px; }
+      .iphone-tabbar { padding: 3px 6px; }
+      .iphone-tabbar .tab-item { font-size: 7px; }
       .features-grid { gap: 20px; }
       .eco-card { padding: 24px 28px; gap: 20px; }
     }
     @media (max-width: 768px) {
-      .navbar .nav-links, .navbar .nav-btn { display: none; }
+      .navbar .nav-links, .navbar .nav-right .nav-btn, .navbar .nav-right .lang-switch { display: none; }
       .hamburger { display: flex; }
       section { padding: 72px 0; }
       .section-title { font-size: 32px; }
@@ -288,6 +405,7 @@
       .eco-card .eco-icon { font-size: 40px; width: auto; }
       .subscribe-form { flex-direction: column; gap: 12px; }
       .subscribe-form input { text-align: center; }
+      .modal-box { max-width: 100%; border-radius: 16px 16px 0 0; }
       .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
       .footer-links { justify-content: center; flex-wrap: wrap; }
       .footer-social { justify-content: center; }
@@ -307,168 +425,190 @@
 
   <header>
     <nav class="navbar" id="navbar" role="navigation" aria-label="主导航">
-      <div class="logo">📧 <span>电邮</span>科技</div>
+      <div class="logo">📧 <span>电波</span>律动</div>
       <div class="nav-links">
-        <a href="#hero">首页</a>
-        <a href="#features">产品</a>
-        <a href="#eco">生态</a>
-        <a href="#subscribe">联系</a>
+        <a href="#hero" data-lang="nav-home">首页</a>
+        <a href="#features" data-lang="nav-products">产品</a>
+        <a href="#eco" data-lang="nav-eco">生态</a>
+        <a href="#subscribe" data-lang="nav-contact">联系</a>
       </div>
-      <button class="nav-btn" onclick="scrollToSection('subscribe')">预订下载</button>
+      <div class="nav-right">
+        <button class="lang-switch" id="langSwitch" onclick="toggleLang()">🇨🇳 中文</button>
+        <button class="nav-btn" onclick="scrollToSection('subscribe')" data-lang="nav-preorder">预订下载</button>
+      </div>
       <button class="hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </nav>
     <div class="mobile-menu" id="mobileMenu">
-      <a href="#hero" onclick="closeMenu()">首页</a>
-      <a href="#features" onclick="closeMenu()">产品</a>
-      <a href="#eco" onclick="closeMenu()">生态</a>
-      <a href="#subscribe" onclick="closeMenu()">联系</a>
-      <button class="mobile-nav-btn" onclick="closeMenu(); scrollToSection('subscribe')">预订下载</button>
+      <a href="#hero" onclick="closeMenu()" data-lang="nav-home">首页</a>
+      <a href="#features" onclick="closeMenu()" data-lang="nav-products">产品</a>
+      <a href="#eco" onclick="closeMenu()" data-lang="nav-eco">生态</a>
+      <a href="#subscribe" onclick="closeMenu()" data-lang="nav-contact">联系</a>
+      <button class="mobile-nav-btn" onclick="closeMenu(); scrollToSection('subscribe')" data-lang="nav-preorder">预订下载</button>
     </div>
   </header>
 
+  <!-- ===== Hero 首屏 ===== -->
   <section class="hero" id="hero">
     <div class="container">
       <div class="hero-text">
-        <div class="hero-tag"><span>✨</span> 即将上市</div>
-        <h1><span>电邮</span>APP</h1>
-        <p class="hero-slogan">连接一切，从一条消息开始</p>
+        <div class="hero-tag"><span>✨</span> <span data-lang="hero-tag">即将上市</span></div>
+        <h1><span data-lang="hero-title-prefix">Dochat</span><span style="color:#007AFF;"> 电邮</span><span data-lang="hero-title-suffix">APP</span></h1>
+        <p class="hero-slogan" data-lang="hero-slogan">极简联络，一诺可守</p>
         <div class="hero-buttons">
-          <button class="btn-primary" onclick="scrollToSection('subscribe')">📥 预订下载</button>
-          <button class="btn-secondary" onclick="scrollToSection('features')">了解更多 →</button>
+          <button class="btn-primary" onclick="scrollToSection('subscribe')">📥 <span data-lang="hero-preorder">预订下载</span></button>
+          <button class="btn-secondary" onclick="scrollToSection('features')"><span data-lang="hero-learnmore">了解更多</span> →</button>
         </div>
       </div>
-      <div class="iphone-model" aria-label="iPhone 15 模型展示电邮APP界面">
+
+      <!-- iPhone 17 Pro Max 模型 -->
+      <div class="iphone-model" aria-label="iPhone 17 Pro Max 模型展示Dochat聊天界面">
+        <div class="iphone-btn vol-up"></div>
+        <div class="iphone-btn vol-down"></div>
+        <div class="iphone-btn mute"></div>
+        <div class="iphone-btn power"></div>
         <div class="iphone-screen">
           <div class="dynamic-island"></div>
-          <div class="iphone-status">
-            <span class="time">9:41</span>
-            <div class="icons">
-              <span class="dot signal"></span>
-              <span class="dot wifi"></span>
-              <span class="dot battery"></span>
-            </div>
+          <!-- 聊天导航栏 -->
+          <div class="chat-nav">
+            <span class="back">◀</span>
+            <span class="name">张三</span>
+            <span class="actions">📞 ▶</span>
           </div>
+          <!-- 聊天内容：杭州西湖旅游对话 -->
           <div class="iphone-chats">
-            <div class="chat-bubble received"><div class="sender">小明</div>你收到邀请了吗？</div>
-            <div class="chat-bubble sent">刚收到！马上来 🚀</div>
-            <div class="chat-bubble received"><div class="sender">团队群</div>今晚8点线上会议</div>
-            <div class="chat-bubble sent">✅ 收到</div>
+            <div class="chat-time">今天 14:30</div>
+            <div class="chat-bubble received"><div class="sender">张三</div>周末一起去杭州西湖旅游吧？</div>
+            <div class="chat-bubble sent">好啊！我早就想去了</div>
+            <div class="chat-bubble received"><div class="sender">张三</div>我查了攻略，可以坐船游湖，还能去灵隐寺</div>
+            <div class="chat-bubble sent">太棒了，那我订酒店</div>
+            <div class="chat-bubble received">ok，到时候见👋</div>
           </div>
+          <!-- 底部输入栏 -->
+          <div class="chat-input-bar">
+            <span class="field">输入消息...</span>
+            <span class="send-btn">➤</span>
+          </div>
+          <!-- 底部Tab Bar -->
           <div class="iphone-tabbar">
-            <div class="tab-item active"><span class="tab-icon" style="background:#007AFF;"></span>消息</div>
-            <div class="tab-item"><span class="tab-icon"></span>广场</div>
-            <div class="tab-item"><span class="tab-icon"></span>服务</div>
-            <div class="tab-item"><span class="tab-icon"></span>我的</div>
+            <div class="tab-item active"><span class="tab-icon">💬</span>聊天</div>
+            <div class="tab-item"><span class="tab-icon">👥</span>好友</div>
+            <div class="tab-item"><span class="tab-icon">🌐</span>广场</div>
+            <div class="tab-item"><span class="tab-icon">💼</span>服务</div>
+            <div class="tab-item"><span class="tab-icon">⚙️</span>设置</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ===== 核心功能 ===== -->
   <section class="features" id="features">
     <div class="container">
-      <h2 class="section-title fade-in">核心功能</h2>
-      <p class="section-subtitle fade-in">简洁、安全、高效的一站式通讯平台</p>
+      <h2 class="section-title fade-in" data-lang="features-title">核心功能</h2>
+      <p class="section-subtitle fade-in" data-lang="features-subtitle">简洁、安全、高效的一站式通讯平台</p>
       <div class="features-grid">
         <div class="feature-card fade-in">
           <span class="icon">💬</span>
-          <h3>消息</h3>
-          <p>端到端加密聊天，文字/语音/视频通话，安全可靠。您的每一次沟通都受到最严格的隐私保护。</p>
-          <span class="learn-more">了解更多 →</span>
+          <h3 data-lang="fcard1-title">消息</h3>
+          <p data-lang="fcard1-desc">端到端加密聊天，文字/语音/视频通话，安全可靠。您的每一次沟通都受到最严格的隐私保护。</p>
+          <span class="learn-more" onclick="openModal('modal1')" data-lang="learnmore">了解更多</span> →
         </div>
         <div class="feature-card fade-in">
           <span class="icon">🌐</span>
-          <h3>广场</h3>
-          <p>动态分享，关注好友生活，发现精彩世界。在这里记录生活点滴，连接志同道合的伙伴。</p>
-          <span class="learn-more">了解更多 →</span>
+          <h3 data-lang="fcard2-title">广场</h3>
+          <p data-lang="fcard2-desc">动态分享，关注好友生活，发现精彩世界。在这里记录生活点滴，连接志同道合的伙伴。</p>
+          <span class="learn-more" onclick="openModal('modal2')" data-lang="learnmore">了解更多</span> →
         </div>
         <div class="feature-card fade-in">
           <span class="icon">💼</span>
-          <h3>服务</h3>
-          <p>担保交易/找房/婚恋/招聘，一站式生活服务。一个平台满足您生活的方方面面。</p>
-          <span class="learn-more">了解更多 →</span>
+          <h3 data-lang="fcard3-title">服务</h3>
+          <p data-lang="fcard3-desc">担保交易/找房/婚恋/招聘，一站式生活服务。一个平台满足您生活的方方面面。</p>
+          <span class="learn-more" onclick="openModal('modal3')" data-lang="learnmore">了解更多</span> →
         </div>
         <div class="feature-card fade-in">
           <span class="icon">👤</span>
-          <h3>我的</h3>
-          <p>个人中心，隐私安全可控，数据端侧存储。真正将数据主权交还给用户。</p>
-          <span class="learn-more">了解更多 →</span>
+          <h3 data-lang="fcard4-title">我的</h3>
+          <p data-lang="fcard4-desc">个人中心，隐私安全可控，数据端侧存储。真正将数据主权交还给用户。</p>
+          <span class="learn-more" onclick="openModal('modal4')" data-lang="learnmore">了解更多</span> →
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ===== 生活服务生态 ===== -->
   <section class="eco" id="eco">
     <div class="container">
-      <h2 class="section-title fade-in">生活服务生态</h2>
-      <p class="section-subtitle fade-in">不止通讯，更懂你的生活</p>
+      <h2 class="section-title fade-in" data-lang="eco-title">生活服务生态</h2>
+      <p class="section-subtitle fade-in" data-lang="eco-subtitle">不止通讯，更懂你的生活</p>
       <div class="eco-list">
         <div class="eco-card fade-in">
           <div class="eco-icon">🔒</div>
           <div class="eco-info">
-            <h3>担保履约</h3>
-            <p>资金托管，安心交易。买卖双方资金由平台托管，交易完成后再放款，彻底杜绝诈骗风险。</p>
+            <h3 data-lang="eco1-title">担保履约</h3>
+            <p data-lang="eco1-desc">资金托管，安心交易。买卖双方资金由平台托管，交易完成后再放款，彻底杜绝诈骗风险。</p>
           </div>
-          <span class="eco-tag">即将上线</span>
+          <span class="eco-tag" data-lang="eco-coming">即将上线</span>
         </div>
         <div class="eco-card fade-in">
           <div class="eco-icon">🏠</div>
           <div class="eco-info">
-            <h3>电邮找房</h3>
-            <p>直连房东，无中介费。真实房源，房东直租，省去中间环节，让租房更简单透明。</p>
+            <h3 data-lang="eco2-title">电邮找房</h3>
+            <p data-lang="eco2-desc">直连房东，无中介费。真实房源，房东直租，省去中间环节，让租房更简单透明。</p>
           </div>
-          <span class="eco-tag">即将上线</span>
+          <span class="eco-tag" data-lang="eco-coming">即将上线</span>
         </div>
         <div class="eco-card fade-in">
           <div class="eco-icon">💕</div>
           <div class="eco-info">
-            <h3>电邮婚恋</h3>
-            <p>真实交友，恋爱分数。基于实名认证的智能匹配，让每一次相遇都更有意义。</p>
+            <h3 data-lang="eco3-title">电邮婚恋</h3>
+            <p data-lang="eco3-desc">真实交友，恋爱分数。基于实名认证的智能匹配，让每一次相遇都更有意义。</p>
           </div>
-          <span class="eco-tag">即将上线</span>
+          <span class="eco-tag" data-lang="eco-coming">即将上线</span>
         </div>
         <div class="eco-card fade-in">
           <div class="eco-icon">💼</div>
           <div class="eco-info">
-            <h3>电邮招聘</h3>
-            <p>企业直招，信誉保障。企业实名认证，职位信息真实可靠，找到最适合您的人才。</p>
+            <h3 data-lang="eco4-title">电邮招聘</h3>
+            <p data-lang="eco4-desc">企业直招，信誉保障。企业实名认证，职位信息真实可靠，找到最适合您的人才。</p>
           </div>
-          <span class="eco-tag">即将上线</span>
+          <span class="eco-tag" data-lang="eco-coming">即将上线</span>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ===== 订阅区 ===== -->
   <section class="subscribe" id="subscribe">
     <div class="container">
-      <h2 class="section-title fade-in">第一时间获取上线通知</h2>
-      <p class="section-subtitle fade-in">填写邮箱，我们会在 App 上线时第一时间通知您</p>
+      <h2 class="section-title fade-in" data-lang="sub-title">第一时间获取上线通知</h2>
+      <p class="section-subtitle fade-in" data-lang="sub-subtitle">填写邮箱，我们会在 App 上线时第一时间通知您</p>
       <div class="subscribe-box fade-in">
         <form class="subscribe-form" id="subscribeForm" novalidate>
-          <input type="email" id="emailInput" placeholder="请输入您的邮箱地址" required autocomplete="email">
-          <button type="submit" class="sub-btn">订阅通知</button>
+          <input type="email" id="emailInput" data-lang="placeholder-email" placeholder="请输入您的邮箱地址" required autocomplete="email">
+          <button type="submit" class="sub-btn" data-lang="sub-btn">订阅通知</button>
         </form>
         <div class="app-store-badge">
           <span class="apple-icon">🍎</span>
-          即将登陆 App Store
+          <span data-lang="sub-appstore">即将登陆 App Store</span>
         </div>
-        <p class="subscribe-note">我们尊重您的隐私，绝不泄露您的邮箱</p>
+        <p class="subscribe-note" data-lang="sub-note">我们尊重您的隐私，绝不泄露您的邮箱</p>
       </div>
     </div>
   </section>
 
   <div class="toast" id="toast"></div>
 
+  <!-- ===== 页脚 ===== -->
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-copy">© 2026 电邮科技 保留所有权利</div>
+        <div class="footer-copy" data-lang="footer-copy">© 2026 江苏电波律动网络科技有限公司 保留所有权利</div>
         <div class="footer-links">
-          <a href="#">隐私政策</a>
-          <a href="#">服务条款</a>
-          <a href="#">联系我们</a>
+          <a href="#" data-lang="footer-privacy">隐私政策</a>
+          <a href="#" data-lang="footer-terms">服务条款</a>
+          <a href="#" data-lang="footer-contact">联系我们</a>
         </div>
         <div class="footer-social">
           <span class="social-icon" aria-label="微信">💬</span>
@@ -479,12 +619,217 @@
     </div>
   </footer>
 
+  <!-- ===== 四个模态框 ===== -->
+
+  <!-- 模态框1：消息 -->
+  <div class="modal-overlay" id="modal1" onclick="closeModalOutside(event, 'modal1')">
+    <div class="modal-box">
+      <div class="modal-handle"></div>
+      <button class="modal-close" onclick="closeModal('modal1')">×</button>
+      <div class="modal-title" data-lang="modal1-title">💬 消息</div>
+      <div class="modal-body">
+        <ul>
+          <li data-lang="modal1-1">• 文字、语音、图片、视频、文件，多种消息类型</li>
+          <li data-lang="modal1-2">• Signal Protocol 端到端加密，云端仅存日志</li>
+          <li data-lang="modal1-3">• 消息撤回、阅后即焚、定时销毁</li>
+          <li data-lang="modal1-4">• 1v1及多人音视频通话，最高50人</li>
+          <li data-lang="modal1-5">• 已读未读、输入中状态实时显示</li>
+          <li data-lang="modal1-6">• 多端同步登录，数据端侧安全存储</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模态框2：广场 -->
+  <div class="modal-overlay" id="modal2" onclick="closeModalOutside(event, 'modal2')">
+    <div class="modal-box">
+      <div class="modal-handle"></div>
+      <button class="modal-close" onclick="closeModal('modal2')">×</button>
+      <div class="modal-title" data-lang="modal2-title">🌐 广场</div>
+      <div class="modal-body">
+        <ul>
+          <li data-lang="modal2-1">• 发布照片、视频、文字动态</li>
+          <li data-lang="modal2-2">• 可见范围自由控制：全部/好友/仅自己/按距离</li>
+          <li data-lang="modal2-3">• 点赞、评论、转发互动</li>
+          <li data-lang="modal2-4">• 关注/推荐/同城三种信息流</li>
+          <li data-lang="modal2-5">• 轻量化设计，无广告无冗余信息</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模态框3：服务 -->
+  <div class="modal-overlay" id="modal3" onclick="closeModalOutside(event, 'modal3')">
+    <div class="modal-box">
+      <div class="modal-handle"></div>
+      <button class="modal-close" onclick="closeModal('modal3')">×</button>
+      <div class="modal-title" data-lang="modal3-title">💼 服务</div>
+      <div class="modal-body" data-lang="modal3-body">
+        一站式生活服务平台，四大生态即将上线：
+        <ul style="margin-top:8px;">
+          <li>🔒 担保履约 — 资金托管，安心交易</li>
+          <li>🏠 电邮找房 — 直连房东，无中介费</li>
+          <li>💕 电邮婚恋 — 真实交友，恋爱分数</li>
+          <li>💼 电邮招聘 — 企业直招，信誉保障</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模态框4：我的 -->
+  <div class="modal-overlay" id="modal4" onclick="closeModalOutside(event, 'modal4')">
+    <div class="modal-box">
+      <div class="modal-handle"></div>
+      <button class="modal-close" onclick="closeModal('modal4')">×</button>
+      <div class="modal-title" data-lang="modal4-title">👤 我的</div>
+      <div class="modal-body">
+        <ul>
+          <li data-lang="modal4-1">• 实名认证，账号安全保障</li>
+          <li data-lang="modal4-2">• 隐私设置，控制信息可见范围</li>
+          <li data-lang="modal4-3">• 数据端侧存储，云端仅存日志</li>
+          <li data-lang="modal4-4">• 深色模式、多语言支持</li>
+          <li data-lang="modal4-5">• 聊天记录本地备份，换机一键迁移</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <script>
     (function () {
       'use strict';
+
+      /* ===== 多语言字符串表 ===== */
+      var langData = {
+        zh: {
+          'nav-home': '首页', 'nav-products': '产品', 'nav-eco': '生态', 'nav-contact': '联系', 'nav-preorder': '预订下载',
+          'hero-tag': '即将上市', 'hero-title-prefix': '', 'hero-title-suffix': '电邮APP',
+          'hero-slogan': '极简联络，一诺可守', 'hero-preorder': '预订下载', 'hero-learnmore': '了解更多',
+          'features-title': '核心功能', 'features-subtitle': '简洁、安全、高效的一站式通讯平台',
+          'fcard1-title': '消息', 'fcard1-desc': '端到端加密聊天，文字/语音/视频通话，安全可靠。您的每一次沟通都受到最严格的隐私保护。',
+          'fcard2-title': '广场', 'fcard2-desc': '动态分享，关注好友生活，发现精彩世界。在这里记录生活点滴，连接志同道合的伙伴。',
+          'fcard3-title': '服务', 'fcard3-desc': '担保交易/找房/婚恋/招聘，一站式生活服务。一个平台满足您生活的方方面面。',
+          'fcard4-title': '我的', 'fcard4-desc': '个人中心，隐私安全可控，数据端侧存储。真正将数据主权交还给用户。',
+          'learnmore': '了解更多',
+          'eco-title': '生活服务生态', 'eco-subtitle': '不止通讯，更懂你的生活',
+          'eco1-title': '担保履约', 'eco1-desc': '资金托管，安心交易。买卖双方资金由平台托管，交易完成后再放款，彻底杜绝诈骗风险。',
+          'eco2-title': '电邮找房', 'eco2-desc': '直连房东，无中介费。真实房源，房东直租，省去中间环节，让租房更简单透明。',
+          'eco3-title': '电邮婚恋', 'eco3-desc': '真实交友，恋爱分数。基于实名认证的智能匹配，让每一次相遇都更有意义。',
+          'eco4-title': '电邮招聘', 'eco4-desc': '企业直招，信誉保障。企业实名认证，职位信息真实可靠，找到最适合您的人才。',
+          'eco-coming': '即将上线',
+          'sub-title': '第一时间获取上线通知', 'sub-subtitle': '填写邮箱，我们会在 App 上线时第一时间通知您',
+          'sub-btn': '订阅通知', 'sub-appstore': '即将登陆 App Store', 'sub-note': '我们尊重您的隐私，绝不泄露您的邮箱',
+          'footer-copy': '© 2026 江苏电波律动网络科技有限公司 保留所有权利',
+          'footer-privacy': '隐私政策', 'footer-terms': '服务条款', 'footer-contact': '联系我们',
+          'toast-success': '感谢订阅！我们会第一时间通知您 🎉',
+          'placeholder-email': '请输入您的邮箱地址',
+          'modal1-title': '💬 消息',
+          'modal1-1': '• 文字、语音、图片、视频、文件，多种消息类型',
+          'modal1-2': '• Signal Protocol 端到端加密，云端仅存日志',
+          'modal1-3': '• 消息撤回、阅后即焚、定时销毁',
+          'modal1-4': '• 1v1及多人音视频通话，最高50人',
+          'modal1-5': '• 已读未读、输入中状态实时显示',
+          'modal1-6': '• 多端同步登录，数据端侧安全存储',
+          'modal2-title': '🌐 广场',
+          'modal2-1': '• 发布照片、视频、文字动态',
+          'modal2-2': '• 可见范围自由控制：全部/好友/仅自己/按距离',
+          'modal2-3': '• 点赞、评论、转发互动',
+          'modal2-4': '• 关注/推荐/同城三种信息流',
+          'modal2-5': '• 轻量化设计，无广告无冗余信息',
+          'modal3-title': '💼 服务',
+          'modal3-body': '一站式生活服务平台，四大生态即将上线：',
+          'modal4-title': '👤 我的',
+          'modal4-1': '• 实名认证，账号安全保障',
+          'modal4-2': '• 隐私设置，控制信息可见范围',
+          'modal4-3': '• 数据端侧存储，云端仅存日志',
+          'modal4-4': '• 深色模式、多语言支持',
+          'modal4-5': '• 聊天记录本地备份，换机一键迁移'
+        },
+        en: {
+          'nav-home': 'Home', 'nav-products': 'Products', 'nav-eco': 'Ecosystem', 'nav-contact': 'Contact', 'nav-preorder': 'Pre-order',
+          'hero-tag': 'Coming Soon', 'hero-title-prefix': 'Dochat ', 'hero-title-suffix': '',
+          'hero-slogan': 'Simple Connection, Trusted Promise', 'hero-preorder': 'Pre-order Download', 'hero-learnmore': 'Learn More',
+          'features-title': 'Core Features', 'features-subtitle': 'Simple, Secure, Efficient All-in-One Communication',
+          'fcard1-title': 'Messages', 'fcard1-desc': 'End-to-end encrypted messaging with text, voice, and video calls. Your conversations are protected with the highest privacy standards.',
+          'fcard2-title': 'Discover', 'fcard2-desc': 'Share moments, follow friends, and explore a world of content. Record life and connect with like-minded people.',
+          'fcard3-title': 'Services', 'fcard3-desc': 'Escrow, housing, dating, recruitment — one platform for all your life service needs.',
+          'fcard4-title': 'Profile', 'fcard4-desc': 'Your personal center with privacy controls and on-device storage. True data sovereignty for every user.',
+          'learnmore': 'Learn More',
+          'eco-title': 'Life Services Ecosystem', 'eco-subtitle': 'More than messaging, truly understand your life',
+          'eco1-title': 'Escrow', 'eco1-desc': 'Secure fund escrow, trade with confidence.',
+          'eco2-title': 'Housing', 'eco2-desc': 'Direct to landlord, zero agency fees.',
+          'eco3-title': 'Dating', 'eco3-desc': 'Authentic dating with trust scores.',
+          'eco4-title': 'Jobs', 'eco4-desc': 'Direct hiring with reputation guarantee.',
+          'eco-coming': 'Coming Soon',
+          'sub-title': 'Get Notified at Launch', 'sub-subtitle': 'Enter your email and we\'ll notify you when the app launches',
+          'sub-btn': 'Subscribe', 'sub-appstore': 'Coming to App Store', 'sub-note': 'We respect your privacy and will never share your email',
+          'footer-copy': '© 2026 Jiangsu Radio Wave Network Technology Co., Ltd. All Rights Reserved',
+          'footer-privacy': 'Privacy Policy', 'footer-terms': 'Terms of Service', 'footer-contact': 'Contact Us',
+          'toast-success': 'Thank you! We\'ll notify you at launch 🎉',
+          'placeholder-email': 'Enter your email address',
+          'modal1-title': '💬 Messages',
+          'modal1-1': '• Text, voice, images, video, files — multiple message types',
+          'modal1-2': '• Signal Protocol end-to-end encryption, cloud logs only',
+          'modal1-3': '• Message recall, self-destruct, timed deletion',
+          'modal1-4': '• 1-on-1 and group audio/video calls, up to 50 people',
+          'modal1-5': '• Read receipts and typing indicators in real-time',
+          'modal1-6': '• Multi-device sync, secure on-device storage',
+          'modal2-title': '🌐 Discover',
+          'modal2-1': '• Share photos, videos, and text posts',
+          'modal2-2': '• Privacy controls: public/friends/private/distance-based',
+          'modal2-3': '• Like, comment, and share interactions',
+          'modal2-4': '• Following/Recommended/Local content feeds',
+          'modal2-5': '• Lightweight design, no ads or clutter',
+          'modal3-title': '💼 Services',
+          'modal3-body': 'All-in-one life service platform, four ecosystems launching soon:',
+          'modal4-title': '👤 Profile',
+          'modal4-1': '• Verified identity, account security',
+          'modal4-2': '• Privacy settings, control your visibility',
+          'modal4-3': '• On-device data storage, cloud logs only',
+          'modal4-4': '• Dark mode, multi-language support',
+          'modal4-5': '• Local chat backup, one-click migration'
+        }
+      };
+
+      var currentLang = localStorage.getItem('dochatsite_lang') || 'zh';
+      var langBtn = document.getElementById('langSwitch');
+
+      /* ===== 应用语言 ===== */
+      function applyLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('dochatsite_lang', lang);
+        var dict = langData[lang];
+        if (!dict) return;
+
+        // 更新 data-lang 元素
+        document.querySelectorAll('[data-lang]').forEach(function (el) {
+          var key = el.getAttribute('data-lang');
+          if (dict[key] !== undefined) {
+            if (el.tagName === 'INPUT') {
+              el.setAttribute('placeholder', dict[key]);
+            } else {
+              el.textContent = dict[key];
+            }
+          }
+        });
+
+        // 语言切换按钮文本
+        langBtn.textContent = lang === 'zh' ? '🇨🇳 中文' : '🇺🇸 English';
+
+        // 更新页面 lang 属性
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+      }
+
+      /* ===== 切换语言 ===== */
+      window.toggleLang = function () {
+        var newLang = currentLang === 'zh' ? 'en' : 'zh';
+        applyLang(newLang);
+      };
+
+      /* ===== 汉堡菜单 ===== */
       var hamburger = document.getElementById('hamburger');
       var mobileMenu = document.getElementById('mobileMenu');
       var menuOpen = false;
+
       function toggleMenu() {
         menuOpen = !menuOpen;
         hamburger.classList.toggle('active', menuOpen);
@@ -498,6 +843,8 @@
         hamburger.setAttribute('aria-expanded', 'false');
       }
       hamburger.addEventListener('click', toggleMenu);
+
+      /* ===== 平滑滚动 ===== */
       function scrollToSection(id) {
         closeMenu();
         var el = document.getElementById(id);
@@ -508,12 +855,16 @@
       }
       window.scrollToSection = scrollToSection;
       window.closeMenu = closeMenu;
+
+      /* ===== 导航滚动效果 ===== */
       var navbar = document.getElementById('navbar');
       function handleNavScroll() {
         var scrollY = window.pageYOffset;
         navbar.classList.toggle('scrolled', scrollY > 20);
       }
       window.addEventListener('scroll', handleNavScroll, { passive: true });
+
+      /* ===== 导航链接点击 ===== */
       document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(function (link) {
         link.addEventListener('click', function (e) {
           var href = link.getAttribute('href');
@@ -523,6 +874,8 @@
           }
         });
       });
+
+      /* ===== Intersection Observer 滚动淡入 ===== */
       var fadeEls = document.querySelectorAll('.fade-in');
       if (fadeEls.length > 0) {
         var observer = new IntersectionObserver(function (entries) {
@@ -534,10 +887,34 @@
         }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
         fadeEls.forEach(function (el) { observer.observe(el); });
       }
+
+      /* ===== 模态框 ===== */
+      window.openModal = function (id) {
+        var overlay = document.getElementById(id);
+        if (overlay) {
+          overlay.classList.add('open');
+          document.body.classList.add('modal-open');
+        }
+      };
+      window.closeModal = function (id) {
+        var overlay = document.getElementById(id);
+        if (overlay) {
+          overlay.classList.remove('open');
+          document.body.classList.remove('modal-open');
+        }
+      };
+      window.closeModalOutside = function (e, id) {
+        if (e.target && e.target.classList.contains('modal-overlay')) {
+          closeModal(id);
+        }
+      };
+
+      /* ===== 订阅表单 ===== */
       var form = document.getElementById('subscribeForm');
       var emailInput = document.getElementById('emailInput');
       var toast = document.getElementById('toast');
       var toastTimer = null;
+
       function showToast(message) {
         if (toastTimer) { clearTimeout(toastTimer); toastTimer = null; }
         toast.textContent = message;
@@ -545,7 +922,7 @@
         toastTimer = setTimeout(function () {
           toast.classList.remove('show');
           toastTimer = null;
-        }, 2500);
+        }, 2800);
       }
       function isValidEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -556,11 +933,16 @@
         emailInput.classList.remove('error');
         if (!email) { emailInput.classList.add('error'); emailInput.focus(); return; }
         if (!isValidEmail(email)) { emailInput.classList.add('error'); emailInput.focus(); return; }
-        showToast('感谢订阅！我们会第一时间通知您 🎉');
+        var dict = langData[currentLang];
+        showToast(dict ? dict['toast-success'] : '感谢订阅！我们会第一时间通知您 🎉');
         emailInput.value = '';
         emailInput.blur();
       });
       emailInput.addEventListener('input', function () { emailInput.classList.remove('error'); });
+
+      /* ===== 初始化：应用已保存的语言 ===== */
+      applyLang(currentLang);
+
     })();
   </script>
 </body>
