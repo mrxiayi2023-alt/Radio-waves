@@ -367,10 +367,47 @@
       .iphone-model { width: 230px; height: 460px; border-radius: 36px; padding: 6px; }
       .iphone-screen { border-radius: 28px; }
       .dynamic-island { width: 80px; height: 24px; border-radius: 12px; top: 8px; }
-      .iphone-chats { padding: 6px 10px; gap: 5px; }
-      .chat-bubble { padding: 6px 10px; font-size: 10px; }
-      .chat-nav { padding: 6px 10px; }
-      .chat-nav .name { font-size: 11px; }
+      .ios-nav { padding: 4px 10px; min-height: 30px; }
+      .ios-nav .nav-title { font-size: 12px; }
+      .ios-nav .nav-action { font-size: 10px; }
+      .ios-search { margin: 3px 10px; padding: 5px 8px; font-size: 9px; }
+      .chat-list-item { padding: 5px 10px; gap: 6px; }
+      .chat-list-item .avatar, .c-avatar { width: 30px; height: 30px; font-size: 11px; }
+      .chat-list-item .info .name { font-size: 10px; }
+      .chat-list-item .info .msg { font-size: 8px; }
+      .chat-list-item .info .time { font-size: 7px; }
+      .c-badge { min-width: 14px; height: 14px; font-size: 7px; }
+      .c-fab { width: 30px; height: 30px; font-size: 13px; right: 10px; bottom: 10px; }
+      .c-seg { margin: 3px 10px; }
+      .c-seg .c-seg-item { font-size: 8px; padding: 2px 0; }
+      .friend-item { padding: 5px 10px; gap: 6px; }
+      .friend-item .f-name { font-size: 10px; }
+      .friend-item .f-btn { font-size: 8px; padding: 2px 8px; }
+      .feed-card { margin: 4px 10px; padding: 6px 8px; }
+      .feed-card .f-hd .c-avatar { width: 20px; height: 20px; font-size: 8px; }
+      .feed-card .f-name { font-size: 8px; }
+      .feed-card .f-text { font-size: 8px; }
+      .feed-card .f-img { height: 40px; font-size: 12px; }
+      .feed-card .f-acts { font-size: 7px; }
+      .s-grid { gap: 5px; padding: 5px 10px; }
+      .s-card { padding: 6px 4px; }
+      .s-card .s-icon { font-size: 15px; }
+      .s-card .s-name { font-size: 8px; }
+      .s-card .s-desc { font-size: 6px; }
+      .s-recent { padding: 3px 10px; }
+      .s-recent .sr-title { font-size: 8px; }
+      .s-recent .sr-item { font-size: 7px; }
+      .p-card { margin: 5px 10px; padding: 8px; gap: 6px; }
+      .p-card .pa { width: 34px; height: 34px; font-size: 13px; }
+      .p-card .pn { font-size: 10px; }
+      .p-card .pe, .p-card .pe2 { font-size: 7px; }
+      .sg { margin: 5px 10px; }
+      .sg .sg-title { font-size: 8px; padding: 5px 10px 1px; }
+      .sg-item { padding: 6px 10px; font-size: 9px; }
+      .sg-item .sv { font-size: 8px; }
+      .sg-toggle { width: 22px; height: 13px; }
+      .sg-toggle::after { width: 9px; height: 9px; top: 2px; right: 2px; }
+      .c-logout { margin: 5px 10px; padding: 6px; font-size: 10px; }
       .iphone-tabbar { padding: 3px 6px; }
       .iphone-tabbar .tab-item { font-size: 7px; }
       .features-grid { gap: 20px; }
@@ -402,6 +439,166 @@
       .footer-social { justify-content: center; }
       .toast { font-size: 14px; padding: 12px 20px; top: 72px; }
     }
+    /* ===== iPhone Tab Carousel ===== */
+    .iphone-content {
+      flex: 1; position: relative; overflow: hidden;
+    }
+    .screen-slide {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      opacity: 0; transition: opacity 0.3s ease; overflow-y: auto;
+      display: flex; flex-direction: column; z-index: 0; pointer-events: none;
+    }
+    .screen-slide.active { opacity: 1; z-index: 1; pointer-events: auto; }
+    .screen-slide::-webkit-scrollbar { width: 0; }
+
+    /* ===== iOS Nav Bar ===== */
+    .ios-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 6px 12px; min-height: 36px; position: relative; z-index: 11; flex-shrink: 0;
+    }
+    .ios-nav .nav-title { font-size: 14px; font-weight: 700; color: #1C1C1E; }
+    .ios-nav .nav-action { font-size: 11px; color: #007AFF; font-weight: 600; background: none; border: none; cursor: default; padding: 4px 0; }
+    .ios-nav .nav-placeholder { width: 36px; }
+
+    /* ===== iOS Search Bar ===== */
+    .ios-search {
+      margin: 4px 12px; padding: 6px 10px; background: #E5E5EA;
+      border-radius: 10px; font-size: 10px; color: #8E8E93;
+      display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+    }
+
+    /* ===== Chat List ===== */
+    .chat-list { flex: 1; overflow-y: auto; padding-bottom: 4px; }
+    .chat-list::-webkit-scrollbar { width: 0; }
+    .chat-list-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 12px; border-bottom: 0.5px solid #E5E5EA;
+    }
+    .chat-list-item:last-child { border-bottom: none; }
+    .chat-list-item .avatar, .c-avatar {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 13px; font-weight: 600; line-height: 1;
+    }
+    .chat-list-item .info { flex: 1; min-width: 0; }
+    .chat-list-item .info .name-row { display: flex; justify-content: space-between; align-items: center; }
+    .chat-list-item .info .name { font-size: 11px; font-weight: 600; color: #1C1C1E; }
+    .chat-list-item .info .time { font-size: 8px; color: #8E8E93; }
+    .chat-list-item .info .msg { font-size: 9px; color: #8E8E93; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .c-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 16px; height: 16px; border-radius: 8px;
+      background: #007AFF; color: #fff; font-size: 8px; font-weight: 600; padding: 0 4px; line-height: 1;
+    }
+    .c-fab {
+      position: absolute; right: 12px; bottom: 12px; z-index: 5;
+      width: 36px; height: 36px; border-radius: 50%; background: #007AFF;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 15px; cursor: default; line-height: 1;
+      box-shadow: 0 2px 8px rgba(0,122,255,0.3);
+    }
+
+    /* ===== Segment ===== */
+    .c-seg {
+      display: flex; margin: 4px 12px; padding: 2px; flex-shrink: 0;
+      background: #E5E5EA; border-radius: 7px;
+    }
+    .c-seg .c-seg-item {
+      flex: 1; text-align: center; padding: 3px 0;
+      font-size: 9px; font-weight: 600; color: #8E8E93;
+      border-radius: 5px; transition: all 0.2s;
+    }
+    .c-seg .c-seg-item.active { background: #fff; color: #1C1C1E; }
+
+    /* ===== Friends ===== */
+    .friend-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 12px; border-bottom: 0.5px solid #E5E5EA;
+    }
+    .friend-item:last-child { border-bottom: none; }
+    .friend-item .f-name { flex: 1; font-size: 11px; font-weight: 600; }
+    .friend-item .f-btn {
+      font-size: 9px; color: #007AFF; font-weight: 600;
+      padding: 3px 10px; border: 0.5px solid #007AFF; border-radius: 10px;
+    }
+
+    /* ===== Feed ===== */
+    .feed-card {
+      margin: 5px 12px; padding: 8px 10px; background: #fff;
+      border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); flex-shrink: 0;
+    }
+    .feed-card .f-hd { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+    .feed-card .f-hd .c-avatar { width: 24px; height: 24px; font-size: 9px; }
+    .feed-card .f-name { font-size: 9px; font-weight: 600; }
+    .feed-card .f-time { font-size: 7px; color: #8E8E93; }
+    .feed-card .f-text { font-size: 9px; color: #1C1C1E; margin-bottom: 5px; line-height: 1.4; }
+    .feed-card .f-img {
+      height: 48px; background: #E5E5EA; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: #8E8E93; margin-bottom: 5px;
+    }
+    .feed-card .f-acts { display: flex; gap: 10px; font-size: 8px; color: #8E8E93; }
+
+    /* ===== Services ===== */
+    .s-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+      padding: 6px 12px; flex-shrink: 0;
+    }
+    .s-card {
+      background: #fff; border-radius: 10px; padding: 8px 6px;
+      text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .s-card .s-icon { font-size: 18px; margin-bottom: 3px; line-height: 1; }
+    .s-card .s-name { font-size: 9px; font-weight: 600; }
+    .s-card .s-desc { font-size: 7px; color: #8E8E93; margin-top: 1px; }
+    .s-card .s-tag {
+      display: inline-block; font-size: 6px; color: #FF9500; font-weight: 600;
+      margin-top: 2px; padding: 1px 5px; border: 0.5px solid #FF9500; border-radius: 5px;
+    }
+    .s-recent { padding: 4px 12px; flex-shrink: 0; }
+    .s-recent .sr-title { font-size: 9px; color: #8E8E93; font-weight: 600; margin-bottom: 4px; }
+    .s-recent .sr-item { font-size: 8px; color: #3C3C43; padding: 3px 0; border-bottom: 0.5px solid #E5E5EA; }
+    .s-recent .sr-item:last-child { border-bottom: none; }
+
+    /* ===== Settings ===== */
+    .p-card {
+      display: flex; align-items: center; gap: 8px;
+      margin: 6px 12px; padding: 10px; background: #fff;
+      border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); flex-shrink: 0;
+    }
+    .p-card .pa { width: 40px; height: 40px; border-radius: 50%; background: #007AFF; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 15px; font-weight: 600; flex-shrink: 0; }
+    .p-card .pi { flex: 1; min-width: 0; }
+    .p-card .pn { font-size: 11px; font-weight: 700; }
+    .p-card .pe { font-size: 8px; color: #8E8E93; }
+    .p-card .pb { font-size: 7px; color: #34C759; font-weight: 600; display: flex; align-items: center; gap: 2px; }
+    .p-card .pe2 { font-size: 7px; color: #8E8E93; margin-top: 1px; }
+    .sg {
+      margin: 6px 12px; background: #fff; border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06); flex-shrink: 0;
+    }
+    .sg .sg-title { font-size: 9px; color: #8E8E93; font-weight: 600; padding: 6px 12px 2px; }
+    .sg-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 12px; font-size: 10px; border-bottom: 0.5px solid #E5E5EA;
+    }
+    .sg-item:last-child { border-bottom: none; }
+    .sg-item .sl { color: #1C1C1E; }
+    .sg-item .sv { color: #8E8E93; font-size: 9px; display: flex; align-items: center; gap: 3px; }
+    .sg-toggle {
+      width: 26px; height: 15px; border-radius: 7px;
+      background: #34C759; position: relative; cursor: default;
+    }
+    .sg-toggle::after {
+      content: ''; position: absolute; top: 2px; right: 2px;
+      width: 11px; height: 11px; border-radius: 50%; background: #fff;
+    }
+    .c-logout {
+      margin: 6px 12px; padding: 8px; text-align: center;
+      font-size: 11px; font-weight: 600; color: #FF3B30;
+      background: #fff; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); flex-shrink: 0;
+    }
+    .sg-icon { font-size: 8px; }
+
     @media (max-width: 420px) {
       .section-title { font-size: 28px; }
       .hero-text h1 { font-size: 32px; }
@@ -457,31 +654,248 @@
       <div class="iphone-model" aria-label="iPhone 15 模型展示Dochat聊天界面">
         <div class="iphone-screen">
           <div class="dynamic-island"></div>
-          <!-- 聊天导航栏 — 仅居中显示联系人名称 -->
-          <div class="chat-nav">
-            <span class="name">张三</span>
-          </div>
-          <!-- 聊天内容：杭州西湖旅游对话 -->
-          <div class="iphone-chats">
-            <div class="chat-time">今天 14:30</div>
-            <div class="chat-bubble received"><div class="sender">张三</div>周末一起去杭州西湖旅游吧？</div>
-            <div class="chat-bubble sent">好啊！我早就想去了</div>
-            <div class="chat-bubble received"><div class="sender">张三</div>我查了攻略，可以坐船游湖，还能去灵隐寺</div>
-            <div class="chat-bubble sent">太棒了，那我订酒店</div>
-            <div class="chat-bubble received">ok，到时候见👋</div>
-          </div>
-          <!-- 底部输入栏 -->
-          <div class="chat-input-bar">
-            <span class="field">输入消息...</span>
-            <span class="send-btn">➤</span>
+          <!-- Tab carousel content -->
+          <div class="iphone-content">
+
+            <!-- ========== Tab 0: 聊天 ========== -->
+            <div class="screen-slide active" data-tab="0">
+              <div class="ios-nav">
+                <span class="nav-title">聊天</span>
+                <span class="nav-action">编辑</span>
+              </div>
+              <div class="ios-search">🔍 搜索消息和联系人</div>
+              <div class="chat-list">
+                <div class="chat-list-item">
+                  <span class="c-avatar" style="background:#007AFF">张</span>
+                  <div class="info">
+                    <div class="name-row">
+                      <span class="name">张三</span>
+                      <span class="time">14:30</span>
+                    </div>
+                    <div class="msg">周末一起去杭州西湖旅游吧？</div>
+                  </div>
+                  <span class="c-badge">3</span>
+                </div>
+                <div class="chat-list-item">
+                  <span class="c-avatar" style="background:#34C759">项</span>
+                  <div class="info">
+                    <div class="name-row">
+                      <span class="name"><span style="font-size:8px;margin-right:2px;">👥</span>项目讨论群</span>
+                      <span class="time">09:15</span>
+                    </div>
+                    <div class="msg">李四：[文件] 需求文档v3.pdf</div>
+                  </div>
+                </div>
+                <div class="chat-list-item">
+                  <span class="c-avatar" style="background:#FF9500">王</span>
+                  <div class="info">
+                    <div class="name-row">
+                      <span class="name">王五</span>
+                      <span class="time">昨天</span>
+                    </div>
+                    <div class="msg">[图片]</div>
+                  </div>
+                  <span class="c-badge">1</span>
+                </div>
+                <div class="chat-list-item">
+                  <span class="c-avatar" style="background:#AF52DE">赵</span>
+                  <div class="info">
+                    <div class="name-row">
+                      <span class="name">赵六</span>
+                      <span class="time">昨天</span>
+                    </div>
+                    <div class="msg">好的，明天见</div>
+                  </div>
+                </div>
+              </div>
+              <span class="c-fab">✏️</span>
+            </div>
+
+            <!-- ========== Tab 1: 好友 ========== -->
+            <div class="screen-slide" data-tab="1">
+              <div class="ios-nav">
+                <span class="nav-title">好友</span>
+                <span class="nav-placeholder"></span>
+              </div>
+              <div class="ios-search">🔍 搜索</div>
+              <div class="c-seg">
+                <span class="c-seg-item active">好友</span>
+                <span class="c-seg-item">群聊</span>
+              </div>
+              <div style="flex:1;overflow-y:auto">
+                <div class="friend-item">
+                  <span class="c-avatar" style="background:#007AFF">张</span>
+                  <span class="f-name">张三</span>
+                  <span class="f-btn">发消息</span>
+                </div>
+                <div class="friend-item">
+                  <span class="c-avatar" style="background:#34C759">李</span>
+                  <span class="f-name">李四</span>
+                  <span class="f-btn">发消息</span>
+                </div>
+                <div class="friend-item">
+                  <span class="c-avatar" style="background:#FF9500">王</span>
+                  <span class="f-name">王五</span>
+                  <span class="f-btn">发消息</span>
+                </div>
+                <div class="friend-item">
+                  <span class="c-avatar" style="background:#AF52DE">赵</span>
+                  <span class="f-name">赵六</span>
+                  <span class="f-btn">发消息</span>
+                </div>
+                <div class="friend-item">
+                  <span class="c-avatar" style="background:#FF2D55">钱</span>
+                  <span class="f-name">钱七</span>
+                  <span class="f-btn">发消息</span>
+                </div>
+                <div class="friend-item">
+                  <span class="c-avatar" style="background:#5AC8FA">孙</span>
+                  <span class="f-name">孙八</span>
+                  <span class="f-btn">发消息</span>
+                </div>
+                <div class="friend-item">
+                  <span class="c-avatar" style="background:#FF6482">周</span>
+                  <span class="f-name">周九</span>
+                  <span class="f-btn">发消息</span>
+                </div>
+                <div class="friend-item">
+                  <span class="c-avatar" style="background:#5856D6">吴</span>
+                  <span class="f-name">吴十</span>
+                  <span class="f-btn">发消息</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========== Tab 2: 广场 ========== -->
+            <div class="screen-slide" data-tab="2">
+              <div class="ios-nav">
+                <span class="nav-title">广场</span>
+                <span class="nav-placeholder"></span>
+              </div>
+              <div class="c-seg">
+                <span class="c-seg-item">关注</span>
+                <span class="c-seg-item active">推荐</span>
+                <span class="c-seg-item">同城</span>
+              </div>
+              <div style="flex:1;overflow-y:auto;padding-top:2px;">
+                <div class="feed-card">
+                  <div class="f-hd">
+                    <span class="c-avatar" style="background:#007AFF">张</span>
+                    <div style="flex:1;min-width:0">
+                      <div class="f-name">张三</div>
+                      <div class="f-time">2小时前</div>
+                    </div>
+                  </div>
+                  <div class="f-text">今天天气真好，出去走走！🌤️</div>
+                  <div class="f-img">📷</div>
+                  <div class="f-acts"><span>❤️ 12</span><span>💬 3</span><span>🔄 1</span></div>
+                </div>
+                <div class="feed-card">
+                  <div class="f-hd">
+                    <span class="c-avatar" style="background:#34C759">李</span>
+                    <div style="flex:1;min-width:0">
+                      <div class="f-name">李四</div>
+                      <div class="f-time">3小时前</div>
+                    </div>
+                  </div>
+                  <div class="f-text">分享一篇好文章：Flutter开发技巧</div>
+                  <div class="f-acts"><span>❤️ 8</span><span>💬 1</span><span>🔄 0</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========== Tab 3: 服务 ========== -->
+            <div class="screen-slide" data-tab="3">
+              <div class="ios-nav">
+                <span class="nav-title">服务</span>
+                <span class="nav-placeholder"></span>
+              </div>
+              <div class="s-grid">
+                <div class="s-card">
+                  <div class="s-icon">🔒</div>
+                  <div class="s-name">担保履约</div>
+                  <div class="s-desc">资金托管，安心交易</div>
+                  <span class="s-tag">即将上线</span>
+                </div>
+                <div class="s-card">
+                  <div class="s-icon">🏠</div>
+                  <div class="s-name">电邮找房</div>
+                  <div class="s-desc">直连房东，无中介费</div>
+                  <span class="s-tag">即将上线</span>
+                </div>
+                <div class="s-card">
+                  <div class="s-icon">💕</div>
+                  <div class="s-name">电邮婚恋</div>
+                  <div class="s-desc">真实交友，恋爱分数</div>
+                  <span class="s-tag">即将上线</span>
+                </div>
+                <div class="s-card">
+                  <div class="s-icon">💼</div>
+                  <div class="s-name">电邮招聘</div>
+                  <div class="s-desc">企业直招，信誉保障</div>
+                  <span class="s-tag">即将上线</span>
+                </div>
+                <div class="s-card">
+                  <div class="s-icon">📧</div>
+                  <div class="s-name">邮箱</div>
+                  <div class="s-desc">账号即邮箱，注册即开通</div>
+                  <span class="s-tag">即将上线</span>
+                </div>
+              </div>
+              <div class="s-recent">
+                <div class="sr-title">最近使用</div>
+                <div class="sr-item">🔒 担保履约 · 2小时前</div>
+                <div class="sr-item">📧 邮箱 · 昨天</div>
+              </div>
+            </div>
+
+            <!-- ========== Tab 4: 设置 ========== -->
+            <div class="screen-slide" data-tab="4">
+              <div class="ios-nav">
+                <span class="nav-title">设置</span>
+                <span class="nav-placeholder"></span>
+              </div>
+              <div class="p-card">
+                <span class="pa">张</span>
+                <div class="pi">
+                  <div class="pn">张三</div>
+                  <div class="pb">✅ 已认证</div>
+                  <div class="pe2">📧 zhangsan@example.com</div>
+                </div>
+              </div>
+              <div class="sg">
+                <div class="sg-title">账号</div>
+                <div class="sg-item"><span class="sl">账号安全</span><span class="sv">&gt;</span></div>
+                <div class="sg-item"><span class="sl">隐私设置</span><span class="sv">&gt;</span></div>
+                <div class="sg-item"><span class="sl">实名认证</span><span class="sv">&gt;</span></div>
+              </div>
+              <div class="sg">
+                <div class="sg-title">通用</div>
+                <div class="sg-item"><span class="sl">深色模式</span><span class="sg-toggle"></span></div>
+                <div class="sg-item"><span class="sl">多语言</span><span class="sv">简体中文 &gt;</span></div>
+                <div class="sg-item"><span class="sl">字号设置</span><span class="sv">标准 &gt;</span></div>
+              </div>
+              <div class="sg">
+                <div class="sg-title">存储</div>
+                <div class="sg-item"><span class="sl">存储管理</span><span class="sv">128MB &gt;</span></div>
+                <div class="sg-item"><span class="sl">聊天记录备份</span><span class="sv">&gt;</span></div>
+              </div>
+              <div class="sg">
+                <div class="sg-title">其他</div>
+                <div class="sg-item"><span class="sl">帮助与反馈</span><span class="sv">&gt;</span></div>
+                <div class="sg-item"><span class="sl">关于电邮</span><span class="sv">&gt;</span></div>
+              </div>
+              <div class="c-logout">退出登录</div>
+            </div>
+
           </div>
           <!-- 底部Tab Bar -->
           <div class="iphone-tabbar">
-            <div class="tab-item active"><span class="tab-icon">💬</span>聊天</div>
-            <div class="tab-item"><span class="tab-icon">👥</span>好友</div>
-            <div class="tab-item"><span class="tab-icon">🌐</span>广场</div>
-            <div class="tab-item"><span class="tab-icon">💼</span>服务</div>
-            <div class="tab-item"><span class="tab-icon">⚙️</span>设置</div>
+            <div class="tab-item active" data-tab="0"><span class="tab-icon">💬</span>聊天</div>
+            <div class="tab-item" data-tab="1"><span class="tab-icon">👥</span>好友</div>
+            <div class="tab-item" data-tab="2"><span class="tab-icon">🌐</span>广场</div>
+            <div class="tab-item" data-tab="3"><span class="tab-icon">💼</span>服务</div>
+            <div class="tab-item" data-tab="4"><span class="tab-icon">⚙️</span>设置</div>
           </div>
         </div>
       </div>
@@ -935,6 +1349,54 @@
         emailInput.blur();
       });
       emailInput.addEventListener('input', function () { emailInput.classList.remove('error'); });
+
+      /* ===== Tab 轮播 ===== */
+      (function() {
+        var slides = document.querySelectorAll('.screen-slide');
+        var tabs = document.querySelectorAll('.iphone-tabbar .tab-item');
+        if (!slides.length) return;
+        var currentTab = 0;
+        var interval;
+
+        function showTab(index) {
+          slides.forEach(function(s, i) {
+            s.classList.toggle('active', i === index);
+          });
+          tabs.forEach(function(t, i) {
+            t.classList.toggle('active', i === index);
+          });
+          currentTab = index;
+        }
+
+        function nextTab() {
+          showTab((currentTab + 1) % slides.length);
+        }
+
+        // Start auto-rotation every 3s
+        interval = setInterval(nextTab, 3000);
+
+        // Click on tab item to switch
+        tabs.forEach(function(tab) {
+          tab.addEventListener('click', function() {
+            var idx = parseInt(tab.getAttribute('data-tab'), 10);
+            if (!isNaN(idx) && idx !== currentTab) {
+              clearInterval(interval);
+              showTab(idx);
+              interval = setInterval(nextTab, 3000);
+            }
+          });
+        });
+
+        // Pause on hover
+        var phone = document.querySelector('.iphone-screen');
+        if (phone) {
+          phone.addEventListener('mouseenter', function() { clearInterval(interval); });
+          phone.addEventListener('mouseleave', function() {
+            clearInterval(interval);
+            interval = setInterval(nextTab, 3000);
+          });
+        }
+      })();
 
       /* ===== 初始化：应用已保存的语言 ===== */
       applyLang(currentLang);
