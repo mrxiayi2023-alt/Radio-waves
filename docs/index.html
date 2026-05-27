@@ -140,6 +140,64 @@
     }
     .hero-buttons .btn-secondary:hover { background: rgba(0,122,255,0.06); transform: translateY(-2px); }
 
+    /* ===== 笔记本电脑模型（纯CSS） ===== */
+    .laptop-model {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .laptop-screen {
+      width: 500px;
+      height: 320px;
+      background: #1C1C1E;
+      border: 3px solid #3A3A3C;
+      border-radius: 12px;
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+    .laptop-camera {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: #007AFF;
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+    /* Light-on-dark hero content inside laptop screen */
+    .laptop-screen .hero-tag { background: rgba(0,122,255,0.2); color: #5AC8FA; margin-bottom: 12px; align-self: flex-start; }
+    .laptop-screen .hero-tag span { color: #5AC8FA; }
+    .laptop-screen h1 { font-size: 38px; color: #fff; margin-bottom: 10px; line-height: 1.15; }
+    .laptop-screen h1 span { color: #fff; }
+    .laptop-screen .hero-slogan { font-size: 16px; color: #AEAEB2; margin-bottom: 24px; font-weight: 400; }
+    .laptop-screen .hero-buttons .btn-primary {
+      font-size: 14px; padding: 10px 24px; background: #007AFF;
+    }
+    .laptop-screen .hero-buttons .btn-secondary {
+      font-size: 14px; padding: 10px 24px; border-color: #007AFF; color: #007AFF;
+    }
+    .laptop-screen .hero-buttons .btn-secondary:hover { background: rgba(0,122,255,0.1); }
+    .laptop-hinge {
+      width: 500px; height: 8px;
+      background: linear-gradient(to bottom, #3A3A3C, #2C2C2E);
+      border-radius: 0 0 4px 4px;
+    }
+    .laptop-base {
+      width: 540px; height: 20px;
+      background: #2C2C2E;
+      clip-path: polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%);
+      border-radius: 0 0 6px 6px;
+    }
+    /* Mobile-only hero text (hidden on desktop) */
+    .hero-text-mobile { display: none; }
+
     /* ===== iPhone 15 模型 ===== */
     .iphone-model {
       flex-shrink: 0; width: 280px; height: 560px;
@@ -367,6 +425,13 @@
       .iphone-model { width: 230px; height: 460px; border-radius: 36px; padding: 6px; }
       .iphone-screen { border-radius: 28px; }
       .dynamic-island { width: 80px; height: 24px; border-radius: 12px; top: 8px; }
+      .laptop-screen { width: 360px; height: 230px; padding: 24px 28px; }
+      .laptop-screen h1 { font-size: 28px; }
+      .laptop-screen .hero-slogan { font-size: 13px; margin-bottom: 16px; }
+      .laptop-screen .hero-buttons .btn-primary,
+      .laptop-screen .hero-buttons .btn-secondary { font-size: 12px; padding: 8px 18px; }
+      .laptop-base { width: 388px; height: 16px; }
+      .laptop-hinge { width: 360px; height: 6px; }
       .ios-nav { padding: 4px 10px; min-height: 30px; }
       .ios-nav .nav-title { font-size: 12px; }
       .ios-nav .nav-action { font-size: 10px; }
@@ -425,7 +490,18 @@
       .hero-text .hero-slogan { font-size: 17px; }
       .hero-buttons { justify-content: center; }
       .hero-buttons .btn-primary, .hero-buttons .btn-secondary { font-size: 15px; padding: 12px 24px; }
+      .laptop-model { display: none; }
       .iphone-model { display: none; }
+      .hero-text-mobile {
+        display: flex; flex-direction: column; align-items: center;
+        padding: 20px 0;
+      }
+      .hero-text-mobile .hero-tag { margin-bottom: 16px; }
+      .hero-text-mobile h1 { font-size: 36px; }
+      .hero-text-mobile .hero-slogan { font-size: 17px; margin-bottom: 28px; }
+      .hero-text-mobile .hero-buttons { justify-content: center; }
+      .hero-text-mobile .hero-buttons .btn-primary,
+      .hero-text-mobile .hero-buttons .btn-secondary { font-size: 15px; padding: 12px 24px; }
       .features-grid { grid-template-columns: 1fr; gap: 16px; }
       .feature-card { padding: 24px; }
       .feature-card .icon { font-size: 32px; }
@@ -640,14 +716,20 @@
   <!-- ===== Hero 首屏 ===== -->
   <section class="hero" id="hero">
     <div class="container">
-      <div class="hero-text">
-        <div class="hero-tag"><span>✨</span> <span data-lang="hero-tag">即将上市</span></div>
-        <h1><span data-lang="hero-title">电邮APP</span></h1>
-        <p class="hero-slogan" data-lang="hero-slogan">极简联络，一诺可守</p>
-        <div class="hero-buttons">
-          <button class="btn-primary" onclick="scrollToSection('subscribe')">📥 <span data-lang="hero-preorder">预订下载</span></button>
-          <button class="btn-secondary" onclick="scrollToSection('features')"><span data-lang="hero-learnmore">了解更多</span> →</button>
+      <!-- 纯CSS笔记本电脑模型（桌面端显示） -->
+      <div class="laptop-model">
+        <div class="laptop-screen">
+          <div class="laptop-camera"></div>
+          <div class="hero-tag"><span>✨</span> <span data-lang="hero-tag">即将上市</span></div>
+          <h1><span data-lang="hero-title">电邮APP</span></h1>
+          <p class="hero-slogan" data-lang="hero-slogan">极简联络，一诺可守</p>
+          <div class="hero-buttons">
+            <button class="btn-primary" onclick="scrollToSection('subscribe')">📥 <span data-lang="hero-preorder">预订下载</span></button>
+            <button class="btn-secondary" onclick="scrollToSection('features')"><span data-lang="hero-learnmore">了解更多</span> →</button>
+          </div>
         </div>
+        <div class="laptop-hinge"></div>
+        <div class="laptop-base"></div>
       </div>
 
       <!-- iPhone 15 模型 -->
@@ -837,7 +919,7 @@
                 </div>
                 <div class="s-card">
                   <div class="s-icon">📧</div>
-                  <div class="s-name">邮箱</div>
+                  <div class="s-name">电子邮箱</div>
                   <div class="s-desc">账号即邮箱，注册即开通</div>
                   <span class="s-tag">即将上线</span>
                 </div>
@@ -845,7 +927,7 @@
               <div class="s-recent">
                 <div class="sr-title">最近使用</div>
                 <div class="sr-item">🔒 担保履约 · 2小时前</div>
-                <div class="sr-item">📧 邮箱 · 昨天</div>
+                <div class="sr-item">📧 电子邮箱 · 昨天</div>
               </div>
             </div>
 
@@ -897,6 +979,17 @@
             <div class="tab-item" data-tab="3"><span class="tab-icon">💼</span>服务</div>
             <div class="tab-item" data-tab="4"><span class="tab-icon">⚙️</span>设置</div>
           </div>
+        </div>
+      </div>
+
+      <!-- 移动端独立文本（768px以下显示） -->
+      <div class="hero-text-mobile">
+        <div class="hero-tag"><span>✨</span> <span data-lang="hero-tag">即将上市</span></div>
+        <h1><span data-lang="hero-title">电邮APP</span></h1>
+        <p class="hero-slogan" data-lang="hero-slogan">极简联络，一诺可守</p>
+        <div class="hero-buttons">
+          <button class="btn-primary" onclick="scrollToSection('subscribe')">📥 <span data-lang="hero-preorder">预订下载</span></button>
+          <button class="btn-secondary" onclick="scrollToSection('features')"><span data-lang="hero-learnmore">了解更多</span> →</button>
         </div>
       </div>
     </div>
@@ -978,8 +1071,8 @@
         <div class="eco-card fade-in">
           <div class="eco-icon">📧</div>
           <div class="eco-info">
-            <h3 data-lang="eco5-title">邮箱</h3>
-            <p data-lang="eco5-desc">App账号即邮箱，聊天级邮件体验。注册即开通，无需额外设置。</p>
+            <h3 data-lang="eco5-title">电子邮箱</h3>
+            <p data-lang="eco5-desc">账号即邮箱，聊天级邮件体验。注册即开通，不错过任何邮件。</p>
           </div>
           <span class="eco-tag" data-lang="eco-coming">即将上线</span>
         </div>
@@ -1079,6 +1172,7 @@
           <li>🏠 电邮找房 — 直连房东，无中介费</li>
           <li>💕 电邮婚恋 — 真实交友，恋爱分数</li>
           <li>💼 电邮招聘 — 企业直招，信誉保障</li>
+          <li>📧 电子邮箱 — 账号即邮箱，注册即开通</li>
         </ul>
       </div>
     </div>
@@ -1123,7 +1217,7 @@
           'eco2-title': '电邮找房', 'eco2-desc': '直连房东，无中介费。真实房源，房东直租，省去中间环节，让租房更简单透明。',
           'eco3-title': '电邮婚恋', 'eco3-desc': '真实交友，恋爱分数。基于实名认证的智能匹配，让每一次相遇都更有意义。',
           'eco4-title': '电邮招聘', 'eco4-desc': '企业直招，信誉保障。企业实名认证，职位信息真实可靠，找到最适合您的人才。',
-          'eco5-title': '邮箱', 'eco5-desc': 'App账号即邮箱，聊天级邮件体验。注册即开通，无需额外设置。',
+          'eco5-title': '电子邮箱', 'eco5-desc': '账号即邮箱，聊天级邮件体验。注册即开通，不错过任何邮件。',
           'eco-coming': '即将上线',
           'sub-title': '第一时间获取上线通知', 'sub-subtitle': '填写邮箱，我们会在 App 上线时第一时间通知您',
           'sub-btn': '订阅通知', 'sub-appstore': '即将登陆 App Store', 'sub-note': '我们尊重您的隐私，绝不泄露您的邮箱',
@@ -1168,7 +1262,7 @@
           'eco2-title': 'Housing', 'eco2-desc': 'Direct to landlord, zero agency fees.',
           'eco3-title': 'Dating', 'eco3-desc': 'Authentic dating with trust scores.',
           'eco4-title': 'Jobs', 'eco4-desc': 'Direct hiring with reputation guarantee.',
-          'eco5-title': 'Mail', 'eco5-desc': 'Your app account is your email. Chat-like mail experience. Ready to use upon registration.',
+          'eco5-title': 'Email', 'eco5-desc': 'Your account is your email. Chat-like experience. Register once, never miss a message.',
           'eco-coming': 'Coming Soon',
           'sub-title': 'Get Notified at Launch', 'sub-subtitle': 'Enter your email and we\'ll notify you when the app launches',
           'sub-btn': 'Subscribe', 'sub-appstore': 'Coming to App Store', 'sub-note': 'We respect your privacy and will never share your email',
