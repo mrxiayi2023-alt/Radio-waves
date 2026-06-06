@@ -675,6 +675,37 @@
     }
     .sg-icon { font-size: 8px; }
 
+    /* ===== Mall Tab ===== */
+    .mall-cats {
+      display: flex; gap: 6px; padding: 8px 12px; flex-shrink: 0;
+    }
+    .mall-cats .mc-btn {
+      flex: 1; text-align: center; font-size: 9px; font-weight: 600;
+      padding: 5px 0; background: #F2F2F7; border-radius: 8px;
+      color: #3C3C43; border: none; cursor: default;
+    }
+    .mall-cats .mc-btn.active { background: #007AFF; color: #fff; }
+    .mall-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+      padding: 4px 12px 8px; flex: 1; overflow-y: auto;
+    }
+    .mall-grid::-webkit-scrollbar { width: 0; }
+    .mall-card {
+      background: #fff; border-radius: 10px; padding: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06); text-align: center;
+    }
+    .mall-card .mc-img {
+      height: 48px; background: #E5E5EA; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 4px;
+    }
+    .mall-card .mc-name { font-size: 9px; font-weight: 600; color: #1C1C1E; }
+    .mall-card .mc-price { font-size: 10px; font-weight: 700; color: #FF3B30; margin: 2px 0; }
+    .mall-card .mc-tag {
+      display: inline-block; font-size: 6px; color: #8E8E93; font-weight: 500;
+      padding: 1px 5px; background: #F2F2F7; border-radius: 4px;
+    }
+
     @media (max-width: 420px) {
       .section-title { font-size: 28px; }
       .hero-text h1 { font-size: 32px; }
@@ -970,6 +1001,46 @@
               <div class="c-logout">退出登录</div>
             </div>
 
+            <!-- ========== Tab 5: 电波商城 ========== -->
+            <div class="screen-slide" data-tab="5">
+              <div class="ios-nav">
+                <span class="nav-title" data-lang="mall-title">电波商城</span>
+                <span class="nav-placeholder"></span>
+              </div>
+              <div class="mall-cats">
+                <span class="mc-btn active" data-lang="mall-secondhand">闲置二手</span>
+                <span class="mc-btn" data-lang="mall-farm">农副产品</span>
+                <span class="mc-btn" data-lang="mall-factory">工厂直销</span>
+              </div>
+              <div class="ios-search">🔍 <span data-lang="mall-search">搜索商品...</span></div>
+              <div class="mall-grid">
+                <div class="mall-card">
+                  <div class="mc-img">📱</div>
+                  <div class="mc-name" data-lang="product-case">手机壳</div>
+                  <div class="mc-price">¥15</div>
+                  <span class="mc-tag" data-lang="mall-secondhand">闲置二手</span>
+                </div>
+                <div class="mall-card">
+                  <div class="mc-img">🍎</div>
+                  <div class="mc-name" data-lang="product-apples">苹果</div>
+                  <div class="mc-price">¥8/斤</div>
+                  <span class="mc-tag" data-lang="mall-farm">农副产品</span>
+                </div>
+                <div class="mall-card">
+                  <div class="mc-img">🛏️</div>
+                  <div class="mc-name" data-lang="product-bedding">家纺四件套</div>
+                  <div class="mc-price">¥89</div>
+                  <span class="mc-tag" data-lang="mall-factory">工厂直销</span>
+                </div>
+                <div class="mall-card">
+                  <div class="mc-img">🌾</div>
+                  <div class="mc-name" data-lang="product-rice">大米</div>
+                  <div class="mc-price">¥35/袋</div>
+                  <span class="mc-tag" data-lang="mall-farm">农副产品</span>
+                </div>
+              </div>
+            </div>
+
           </div>
           <!-- 底部Tab Bar -->
           <div class="iphone-tabbar">
@@ -977,7 +1048,8 @@
             <div class="tab-item" data-tab="1"><span class="tab-icon">👥</span>好友</div>
             <div class="tab-item" data-tab="2"><span class="tab-icon">🌐</span>广场</div>
             <div class="tab-item" data-tab="3"><span class="tab-icon">💼</span>服务</div>
-            <div class="tab-item" data-tab="4"><span class="tab-icon">⚙️</span>设置</div>
+            <div class="tab-item" data-tab="4"><span class="tab-icon">🛒</span>商城</div>
+            <div class="tab-item" data-tab="5"><span class="tab-icon">⚙️</span>设置</div>
           </div>
         </div>
       </div>
@@ -1255,7 +1327,16 @@
           'modal4-2': '• 隐私设置，控制信息可见范围',
           'modal4-3': '• 数据端侧存储，云端仅存日志',
           'modal4-4': '• 深色模式、多语言支持',
-          'modal4-5': '• 聊天记录本地备份，换机一键迁移'
+          'modal4-5': '• 聊天记录本地备份，换机一键迁移',
+          'mall-title': '电波商城',
+          'mall-search': '搜索商品...',
+          'mall-secondhand': '闲置二手',
+          'mall-farm': '农副产品',
+          'mall-factory': '工厂直销',
+          'product-case': '手机壳',
+          'product-apples': '苹果',
+          'product-bedding': '家纺四件套',
+          'product-rice': '大米'
         },
         en: {
           'nav-home': 'Home', 'nav-products': 'Products', 'nav-eco': 'Ecosystem', 'nav-contact': 'Contact', 'nav-preorder': 'Pre-order',
@@ -1295,13 +1376,22 @@
           'modal2-4': '• Following/Recommended/Local content feeds',
           'modal2-5': '• Lightweight design, no ads or clutter',
           'modal3-title': '💼 Services',
-          'modal3-body': 'All-in-one life service platform, five ecosystems launching soon:',
+          'modal3-body': 'All-in-one life service platform, six ecosystems launching soon:',
           'modal4-title': '⚙️ Settings',
           'modal4-1': '• Verified identity, account security',
           'modal4-2': '• Privacy settings, control your visibility',
           'modal4-3': '• On-device data storage, cloud logs only',
           'modal4-4': '• Dark mode, multi-language support',
-          'modal4-5': '• Local chat backup, one-click migration'
+          'modal4-5': '• Local chat backup, one-click migration',
+          'mall-title': 'Dochat Mall',
+          'mall-search': 'Search products...',
+          'mall-secondhand': 'Second-hand',
+          'mall-farm': 'Farm Produce',
+          'mall-factory': 'Factory Direct',
+          'product-case': 'Phone Case',
+          'product-apples': 'Apples',
+          'product-bedding': 'Bedding Set',
+          'product-rice': 'Rice'
         }
       };
 
