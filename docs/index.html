@@ -1116,11 +1116,11 @@
       <h2 class="section-title fade-in" data-lang="sub-title">第一时间获取上线通知</h2>
       <p class="section-subtitle fade-in" data-lang="sub-subtitle">填写邮箱，我们会在 App 上线时第一时间通知您</p>
       <div class="subscribe-box fade-in">
-        <form action="https://formspree.io/f/mdavelky" method="POST" class="subscribe-form" id="subscribeForm" novalidate>
+        <form action="https://formspree.io/f/mdavelky" method="POST" class="subscribe-form" id="subscribeForm">
           <input type="email" name="email" id="emailInput" data-lang="placeholder-email" placeholder="请输入您的邮箱地址" required autocomplete="email">
           <button type="submit" class="sub-btn" data-lang="sub-btn">订阅通知</button>
-          <input type="hidden" name="_subject" value="电波灵动官网 - 新订阅">
-          <input type="hidden" name="_replyto" value="admin@jsdbld.com">
+          <input type="hidden" name="_subject" value="电波灵动官网订阅">
+          <input type="hidden" name="_replyto" value="865357222@qq.com">
         </form>
         <div class="app-store-badge">
           <span class="apple-icon">🍎</span>
@@ -1473,19 +1473,12 @@
         }
       };
 
-      /* ===== 订阅表单 - Formspree 邮件发送 ===== */
+      /* ===== 订阅表单 - 前端验证，原生提交到 Formspree ===== */
       (function() {
         var subscribeForm = document.getElementById('subscribeForm');
         if (!subscribeForm) return;
 
-        // Clone & replace to remove any existing event listeners
-        var newForm = subscribeForm.cloneNode(true);
-        subscribeForm.parentNode.replaceChild(newForm, subscribeForm);
-
         var emailInput = document.getElementById('emailInput');
-        if (!emailInput || !document.contains(emailInput)) {
-          emailInput = newForm.querySelector('#emailInput');
-        }
         if (!emailInput) return;
 
         var toast = document.getElementById('toast');
@@ -1502,45 +1495,22 @@
           }, 2800);
         }
 
-        newForm.addEventListener('submit', async function (e) {
-          e.preventDefault();
+        subscribeForm.addEventListener('submit', function (e) {
           var email = emailInput.value.trim();
 
           // 邮箱格式验证
           var emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
           if (!emailRegex.test(email)) {
+            e.preventDefault();
             showToast(currentLang === 'zh' ? '请输入有效的邮箱地址' : 'Please enter a valid email', 'error');
             emailInput.classList.add('error');
             setTimeout(function () { emailInput.classList.remove('error'); }, 500);
             return;
           }
 
-          var submitBtn = newForm.querySelector('button[type="submit"]');
-          var originalText = submitBtn.textContent;
-          submitBtn.disabled = true;
-          submitBtn.textContent = currentLang === 'zh' ? '提交中...' : 'Submitting...';
-
-          try {
-            var formData = new FormData(newForm);
-            var response = await fetch('https://formspree.io/f/mdavelky', {
-              method: 'POST',
-              body: formData,
-              headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-              showToast(currentLang === 'zh' ? '订阅成功！我们会尽快通知您' : 'Subscribed! We will notify you soon', 'success');
-              emailInput.value = '';
-            } else {
-              showToast(currentLang === 'zh' ? '提交失败，请稍后重试' : 'Submission failed, please try again', 'error');
-            }
-          } catch (error) {
-            console.error('Formspree error:', error);
-            showToast(currentLang === 'zh' ? '网络错误，请稍后重试' : 'Network error, please try again', 'error');
-          } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-          }
+          // 验证通过，让表单原生提交到 Formspree
+          // 提交后会跳转到 Formspree 感谢页
+          showToast(currentLang === 'zh' ? '提交中，请稍候...' : 'Submitting, please wait...', 'info');
         });
 
         emailInput.addEventListener('input', function () { emailInput.classList.remove('error'); });
